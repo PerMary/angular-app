@@ -1,0 +1,66 @@
+<div>
+  <p class="title_info_demand"><b>Информация о завке: </b></p>
+  <div class="info_demand">
+  <p><b><i>Дата создания: </i></b> </p>
+  <p><b><i>Номер заявки: </i></b> </p>
+  <p><b><i>Описание: </i></b>  </p>
+  <p><b><i>Количество позиций: </i></b> </p>
+  <p><b><i>Количество товаров: </i></b> </p>
+  <p><b><i>Общая стоимость(руб): </i></b> </p>
+  </div>
+  <div class="button_demand_del_create">
+    <div class="form-group">
+      <div class="col-md-8">
+        <input class="form-control" [(ngModel)]="name" placeholder="Наименование позиции" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-8">
+        <input class="form-control" [(ngModel)]="article" placeholder="Артикул" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <input type="number" class="form-control" [(ngModel)]="quantity" placeholder="Количество" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <input type="number" class="form-control" [(ngModel)]="priceOne" placeholder="Цена за шт" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-8">
+        <button class="btn btn-default" (click)="addPosition(name, article, quantity, priceOne)">Добавить позицию</button>
+      </div>
+    </div>
+    <p>
+      <button> Сформировать PDF</button>
+      <button> Просмотр всех PDF</button>
+    </p>
+  </div>
+  <div align="center">
+    <div class="table_style">
+      <table width="1000">
+        <thead>
+        <tr>
+          <th>Наименование:</th>
+          <th>Артикул:</th>
+          <th>Количество:</th>
+          <th>Цена шт(руб):</th>
+          <th>Общая ст-ть(руб):</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let position of positions">
+          <td>{{ position.name }}</td>
+          <td>{{ position.article }}</td>
+          <td>{{ position.quantity}}</td>
+          <td>{{ position.priceOne}}</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

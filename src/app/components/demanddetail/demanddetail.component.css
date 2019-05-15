@@ -1,0 +1,66 @@
+h1{
+  text-align: center;
+  font-family: FreeMono, monospace;
+}
+
+
+th{
+	background-color: #bfbfbf;
+	text-align: center;
+	font-family: FreeMono, monospace;
+	font-size: 19;
+}
+
+
+td{
+	text-align: center;
+	font-family: FreeMono, monospace;
+	font-size: 18;
+  background-color: #d8cce6;
+
+}
+
+/*Таблицы */
+table{
+  border: 1px;
+  width: 900px;
+}
+
+.text_table{
+	background-color: #FAF0E6;
+}
+
+.table_style{
+	width: 900px;
+	box-shadow: -10px 10px 10px -5px rgba(0, 0, 0, .2);
+}
+
+.table_style_demand{
+	margin: center;
+	width: 900px;
+	box-shadow: -10px 10px 10px -5px rgba(0, 0, 0, .2);
+  align-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*Старницы заявки */
+.title_info_demand{
+	text-align: center;
+	font-family: FreeMono, monospace;
+	font-size: 24;
+	margin-top: 50px;
+	color: #4c16a8
+}
+
+.info_demand{
+	width: 90%;
+	font-family: FreeMono, monospace;
+	font-size: 18;
+	text-align: left;
+	margin-left: 4.8cm;
+    right: 0;
+}
+
+/*.button_demand_del_create{*/
+	/*text-align: center;*/
+/*}*/

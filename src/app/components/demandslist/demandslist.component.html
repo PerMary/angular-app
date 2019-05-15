@@ -1,0 +1,57 @@
+<div>
+  <h1>Список заявок на закупку:</h1>
+</div>
+<div class="panel">
+  <div class="form-inline">
+    <div class="form-group">
+      <div class="col-md-8">
+        <input type="number" class="form-control" [(ngModel)]="id" placeholder="Номер заявки" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-8">
+        <input type="date" class="form-control" [(ngModel)]="date" placeholder="Дата" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-6">
+        <input class="form-control" [(ngModel)]="user" placeholder="Пользователь" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-8">
+        <input class="form-control" [(ngModel)]="description" placeholder="Описание" />
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-8">
+        <button class="btn btn-default" (click)="addDemand(id, date, user, description)">Добавить</button>
+      </div>
+  </div>
+</div>
+<div class="table_style_demand">
+  <table>
+    <thead>
+    <tr>
+      <th>Номер заявки</th>
+      <th>Дата создания</th>
+      <th>Пользователь</th>
+      <th>Опсиание </th>
+      <th>Кол-во позиций</th>
+      <th>Кол-во товаров</th>
+      <th>Общая стоимость</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let demand of demands">
+      <td>{{demand.id}}</td>
+      <td>{{demand.create_date|date:"d.M.y"}}</td>
+      <td>{{demand.user}}</td>
+      <td><a href="">{{demand.description}}</a></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
