@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { FormsModule,
-         ReactiveFormsModule, } from '@angular/forms';
+         ReactiveFormsModule,
+         FormBuilder,
+         FormGroup,
+         Validators,  } from '@angular/forms';
 
 import { HttpClientModule} from '@angular/common/http';
 
@@ -13,7 +16,10 @@ import { AppComponent } from './app.component';
 import { DemandslistComponent} from './components/demandslist/demandslist.component';
 import { DemanddetailComponent } from './components/demanddetail/demanddetail.component';
 
-
+//import services
+import {DemnadslistService} from "./service/demandslist/demnadslist.service";
+import { LoginComponent } from './components/login/login.component';
+import { LoginService} from './service/login/login.service';
 
 
 @NgModule({
@@ -21,6 +27,7 @@ import { DemanddetailComponent } from './components/demanddetail/demanddetail.co
     AppComponent,
     DemandslistComponent,
     DemanddetailComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,7 @@ import { DemanddetailComponent } from './components/demanddetail/demanddetail.co
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [], //registration of services
+  providers: [DemnadslistService,LoginService], //registration of services
   bootstrap: [AppComponent]
 })
 export class AppModule { }

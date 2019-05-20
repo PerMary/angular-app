@@ -1,18 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient} from "@angular/common/http";
+//How import services?
+import { DemnadslistService} from "../../service/demandslist/demnadslist.service";
 
-class Demand{
+
+interface Demand {
   id: number;
-  create_date: string;
-  user: string;
+  created_date: string;
+  // user: string;
   description: string;
-
-  constructor(id:number, create_date:string, user: string, desription: string){
-    this.id = id;
-    this.create_date = create_date;
-    this.user = user;
-    this.description = desription;
-  }
 }
+
 
 
 @Component({
@@ -20,23 +18,36 @@ class Demand{
   templateUrl: './demandslist.component.html',
   styleUrls: ['./demandslist.component.css']
 })
-export class DemandslistComponent {
+export class DemandslistComponent implements OnInit {
 
   demands: Demand[]=
     [
-      {id:1, create_date:"", user:"Иванов И.И.",description:"Закупка оборудования для проекта 'Источник И1'" },
-      {id:2, create_date:"", user:"Админов А.А.",description:"Закупка для проекта 'Источник'" },
-      {id:3, create_date:"", user:"Петров П.П.",description:"Закупка оборудования" },
+      {id:1, created_date:"05.12.2019", description:"Закупка оборудования для проекта 'Источник И1'" },
+      {id:2, created_date:"05.14.2019", description:"Закупка для проекта 'Источник'" },
+      {id:3, created_date:"05.17.2019", description:"Закупка оборудования" },
     ];
 
-  addDemand(id: number, create_date:string, user: string, descriptions: string): void{
-
-    if (id==null || create_date==null || create_date.trim()=="" || user==null || user.trim()=="" ||  descriptions==null || descriptions.trim()=="")
-      return;
-    this.demands.push(new Demand(id, create_date, user, descriptions));
+  addDemand(id: number, created_date:string, descriptions: string): void{
+    // if (id==null || created_date==null || created_date.trim()=="" || descriptions==null || descriptions.trim()=="")
+    //   return;
+    //
+    // this.demands.push(new Demand(id, created_date, descriptions));
   }
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private demandsService: DemnadslistService,
+  ) { }
+
+  ngOnInit() {
+    this.demandsService.getData().subscribe((data: Demand[]) => {
+      this.demands = this.demands.concat(data);
+      console.log(this.demands);
+    }
+    );
+  }
+
+
 
 
 }

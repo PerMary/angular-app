@@ -13,11 +13,11 @@
         <input type="date" class="form-control" [(ngModel)]="date" placeholder="Дата" />
       </div>
     </div>
-    <div class="form-group">
-      <div class="col-md-6">
-        <input class="form-control" [(ngModel)]="user" placeholder="Пользователь" />
-      </div>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-6">-->
+        <!--<input class="form-control" [(ngModel)]="user" placeholder="Пользователь" />-->
+      <!--</div>-->
+    <!--</div>-->
     <div class="form-group">
       <div class="col-md-8">
         <input class="form-control" [(ngModel)]="description" placeholder="Описание" />
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
       <div class="col-md-offset-2 col-md-8">
-        <button class="btn btn-default" (click)="addDemand(id, date, user, description)">Добавить</button>
+        <button class="btn btn-default" (click)="addDemand(id, date, description)">Добавить</button>
       </div>
   </div>
 </div>
@@ -45,8 +45,9 @@
     <tbody>
     <tr *ngFor="let demand of demands">
       <td>{{demand.id}}</td>
-      <td>{{demand.create_date|date:"d.M.y"}}</td>
-      <td>{{demand.user}}</td>
+      <td>{{demand.created_date|date:"d.MM.y"}}</td>
+      <td></td>
+      <!--<td>{{demand.user}}</td>-->
       <td><a href="">{{demand.description}}</a></td>
       <td></td>
       <td></td>
