@@ -1,33 +1,37 @@
 <div>
   <h1>Список заявок на закупку:</h1>
 </div>
-<div class="panel">
-  <div class="form-inline">
-    <div class="form-group">
-      <div class="col-md-8">
-        <input type="number" class="form-control" [(ngModel)]="id" placeholder="Номер заявки" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-8">
-        <input type="date" class="form-control" [(ngModel)]="date" placeholder="Дата" />
-      </div>
-    </div>
+<div class="panel" align="center">
+  <!--<div class="form-inline">-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input type="number" class="form-control" [(ngModel)]="id" placeholder="Номер заявки" />-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input type="date" class="form-control" [(ngModel)]="date" placeholder="Дата" />-->
+      <!--</div>-->
+    <!--</div>-->
     <!--<div class="form-group">-->
       <!--<div class="col-md-6">-->
         <!--<input class="form-control" [(ngModel)]="user" placeholder="Пользователь" />-->
       <!--</div>-->
     <!--</div>-->
-    <div class="form-group">
-      <div class="col-md-8">
-        <input class="form-control" [(ngModel)]="description" placeholder="Описание" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-offset-2 col-md-8">
-        <button class="btn btn-default" (click)="addDemand(id, date, description)">Добавить</button>
-      </div>
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input class="form-control" [(ngModel)]="description" placeholder="Описание" />-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-offset-2 col-md-8">-->
+        <!--<button class="btn btn-default" (click)="addDemand(id, date, description)">Добавить</button>-->
+      <!--</div>-->
+  <!--</div>-->
+  <div>
+    <a onclick="$('#name').slideToggle('slow');" href="javascript://">svernyt`</a>
   </div>
+  <div id="name">jonhoijiopjfgs;dkgsdjgmsdfjkgpi</div>
 </div>
 <div class="table_style_demand">
   <table>
@@ -46,13 +50,14 @@
     <tr *ngFor="let demand of demands">
       <td>{{demand.id}}</td>
       <td>{{demand.created_date|date:"d.MM.y"}}</td>
-      <td></td>
+      <td>{{ demand.user.short_name}}</td>
       <!--<td>{{demand.user}}</td>-->
-      <td><a href="">{{demand.description}}</a></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><a [routerLink]="['/demand-detail', demand.id]">{{demand.description}}</a></td>
+      <td>{{ demand.position_count}}</td>
+      <td>{{ demand.product_count}}</td>
+      <td>{{ demand.price_all}}</td>
     </tr>
+    <router-outlet></router-outlet>
     </tbody>
   </table>
 </div>

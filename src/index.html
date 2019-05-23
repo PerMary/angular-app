@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <base href="/">
   <!--<link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />правильный вариант картинки-->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Web-сервис</title>
-  <base href="/">
   <link rel="icon" type="src" href="https://img.icons8.com/ios/50/000000/bear-footprint-filled.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="styles" href="styles.css">
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <div class="loading" align="center">
+      <p class="imgblock">
+        <img src="assets/images/rocet.gif">
+      </p>
+      <p>
+        Loading
+      </p>
+    </div>
+  </app-root>
 </body>
 </html>

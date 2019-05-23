@@ -12,13 +12,15 @@
           <!--TODO: cleanup classes in fields-->
           <div class="ui-g-12">
             <span class="md-inputfield">
+              <label>Пользователь</label>
                 <input
                   id="username"
                   type="text"
+                  placeholder="username"
                   pInputText
                   formControlName="username"
                   [ngClass]="{'is-invalid': submitted && f['username'].errors}" />
-                <label>Пользователь</label>
+
               <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
                 <div *ngIf="f['username'].hasError('required')">Требуется указать username</div>
               </div>
@@ -27,13 +29,14 @@
 
           <div class="ui-g-12">
             <span class="md-inputfield">
+              <label>Пароль</label>
                 <input
                   id="password"
                   type="password"
+                  placeholder="password"
                   formControlName="password"
                   pInputText
                   [ngClass]="{'is-invalid': submitted && f['password'].errors}" />
-                <label>Пароль</label>
                 <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
                   <div *ngIf="f['password'].errors.required">Требуется указать пароль</div>
                 </div>

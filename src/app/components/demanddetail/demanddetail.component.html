@@ -1,4 +1,7 @@
 <div>
+  <a routerLink="/"><-Назад</a>
+</div>
+<div>
   <p class="title_info_demand"><b>Информация о завке: </b></p>
   <div class="info_demand">
   <p><b><i>Дата создания: </i></b> </p>
@@ -8,7 +11,7 @@
   <p><b><i>Количество товаров: </i></b> </p>
   <p><b><i>Общая стоимость(руб): </i></b> </p>
   </div>
-  <div class="button_demand_del_create">
+  <div class="button_demand_del_create" align="center">
     <div class="form-group">
       <div class="col-md-8">
         <input class="form-control" [(ngModel)]="name" placeholder="Наименование позиции" />
@@ -53,11 +56,11 @@
         </thead>
         <tbody>
         <tr *ngFor="let position of positions">
-          <td>{{ position.name }}</td>
-          <td>{{ position.article }}</td>
+          <td>{{ position.name_product }}</td>
+          <td>{{ position.art_product }}</td>
           <td>{{ position.quantity}}</td>
-          <td>{{ position.priceOne}}</td>
-          <td></td>
+          <td>{{ position.price_one}}</td>
+          <td>{{ position.full_price_position}}</td>
         </tr>
         </tbody>
       </table>
