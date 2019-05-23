@@ -36,9 +36,10 @@ export class LoginComponent implements OnInit {
         return;
     }
     this.loginServ.Login(this.loginForm.controls.username.value,
-                         this.loginForm.controls.password.value ).subscribe(data=>{console.log(data)},
-                                                                                  error=>{console.log(error)});
+                         this.loginForm.controls.password.value ).subscribe (token=> {console.log(token),
+                         this.loginServ.getInfoUser(token['auth_token']).subscribe(data=> {console.log(data)})},
+                                                                             error=>{console.log(error)});
 
-  }
 
+}
 }

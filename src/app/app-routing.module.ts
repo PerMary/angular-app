@@ -8,9 +8,9 @@ import {DemanddetailComponent} from './components/demanddetail/demanddetail.comp
 
 const routes: Routes =[
     { path: 'login', component: LoginComponent},
-    { path: '', component: DemandslistComponent},
+    { path: 'demand-list', component: DemandslistComponent},
     { path: 'demand-detail/:demand.id', component: DemanddetailComponent},
-    // { path: '',  redirectTo: '/demand-list', pathMatch: 'full' },
+    { path: '',  redirectTo: '/demand-list', pathMatch: 'full' },
 // когда вводишь несуществующий id, он открывает страницу demand-detail/id а не noffound
 // как правильно перенаправить стартовую страницу на demand-list?
     { path: '**', component: NotfoundComponent},
