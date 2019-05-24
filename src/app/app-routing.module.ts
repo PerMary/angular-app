@@ -4,6 +4,7 @@ import {NotfoundComponent} from './components/notfound/notfound.component';
 import {LoginComponent} from './components/login/login.component';
 import {DemandslistComponent} from './components/demandslist/demandslist.component';
 import {DemanddetailComponent} from './components/demanddetail/demanddetail.component';
+import { LogoutComponent} from './components/logout/logout.component';
 
 
 const routes: Routes =[
@@ -11,6 +12,7 @@ const routes: Routes =[
     { path: 'demand-list', component: DemandslistComponent},
     { path: 'demand-detail/:demand.id', component: DemanddetailComponent},
     { path: '',  redirectTo: '/demand-list', pathMatch: 'full' },
+    { path: 'logout', component: LogoutComponent},
 // когда вводишь несуществующий id, он открывает страницу demand-detail/id а не noffound
 // как правильно перенаправить стартовую страницу на demand-list?
     { path: '**', component: NotfoundComponent},

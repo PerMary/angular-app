@@ -1,12 +1,9 @@
 /*Шапка всех страниц */
 .head{
 	margin: center;
-    font-family: FreeMono, monospace;
+  font-family: FreeMono, monospace;
 	font-size: 17;
-}
-
-.header_page_auth {
-	background-color: #eee3fa;
+  background-color: #eee3fa;
 	width: 90%;
   height: 35px;
 	color: #320c75;
@@ -15,16 +12,28 @@
 	margin-left: auto;
   margin-right: auto;
 	padding: 0px 30px 0px 30px;
-	font-family: FreeMono, monospace;
-	font-size: 19;
-	box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+  overflow: hidden;
+}
+
+.header_page_auth {
+  white-space: nowrap;
+}
+
+.header_page_auth div{
+  width: 50%;
+  display: inline-block;
+}
+
+.text_in_header_page{
+  display: inline-block;
 }
 
 .aaa{
     align-content: center;
-    display:inline-block;
-    text-align: center;
-    width: 45%;
+    /*display:inline-block;*/
+    /*text-align: center;*/
+    /*width: 40%;*/
 }
 
 /*Значок тигра*/

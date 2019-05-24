@@ -22,6 +22,7 @@ import { DemandslistComponent} from './components/demandslist/demandslist.compon
 import { DemanddetailComponent } from './components/demanddetail/demanddetail.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 
@@ -32,6 +33,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     DemanddetailComponent,
     LoginComponent,
     NotfoundComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

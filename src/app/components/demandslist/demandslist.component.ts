@@ -27,12 +27,11 @@ export class DemandslistComponent implements OnInit {
       // {id:3, created_date:"",user:[], description:"Закупка оборудования" },
     ];
 
-  addDemand(id: number, created_date:string,user:string[], descriptions: string): void{
+  addDemand(descriptions: string){
     // if (id==null || created_date==null || created_date.trim()=="" || descriptions==null || descriptions.trim()=="")
     //   return;
 
-
-    // this.demands.push(new Demand (id, created_date, descriptions));
+    // this.demands.push(new Demand (descriptions));
   }
 
   constructor(
@@ -48,10 +47,21 @@ export class DemandslistComponent implements OnInit {
     );
   }
 
-  openForm(){}
-
-
-
+  openForm(){
+    var a=prompt('Введите опсиание заявки','');
+    var text = '';
+    if (a === null){
+      text = 'Вы не ввели опсиание заявки';
+    }
+    else if(a == ''){
+      text = 'Вы не ввели опсиание заявки';
+    }
+    else{
+      text = a;
+    }
+    document.getElementById('demand_view').innerHTML = 'Заявка: ' + text;
+  };
 
 }
+
 

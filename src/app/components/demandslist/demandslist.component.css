@@ -44,3 +44,8 @@ table{
   margin-left: auto;
   margin-right: auto;
 }
+
+.splCont{
+  display:none;
+  /*padding:3px 5px;*/
+}
