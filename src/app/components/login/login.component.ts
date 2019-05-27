@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService} from '../../service/login/login.service';
 import {error} from 'selenium-webdriver';
+import {AppComponent} from '../../app.component';
 
 export interface User{
   id: number;
@@ -11,6 +12,7 @@ export interface User{
   first_name: string;
   last_name: string;
   middle_name: string;
+  full_name: string;
 }
 
 @Component({
@@ -20,6 +22,9 @@ export interface User{
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  user: User;
+
+  @Output()public fullnameChange = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
               private loginServ: LoginService) { }
@@ -36,10 +41,13 @@ export class LoginComponent implements OnInit {
         return;
     }
     this.loginServ.Login(this.loginForm.controls.username.value,
-                         this.loginForm.controls.password.value ).subscribe (token=> {console.log(token),
-                         this.loginServ.getInfoUser(token['auth_token']).subscribe(data=> {console.log(data)})},
-                                                                             error=>{console.log(error)});
+                         this.loginForm.controls.password.value )
+                             .subscribe (token=> {console.log(token),
+                         this.loginServ.getInfoUser(token['auth_token'])
+                             .subscribe((data: User)=> {AppComponent.fullname.next(data['full_name']);
+                                 console.log(data)})},
+                                   error=>{console.log(error)});
 
 
-}
+  }
 }

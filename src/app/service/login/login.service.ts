@@ -16,7 +16,7 @@ export class LoginService {
   }
 
   getInfoUser(token: string){
-    return this.http.get('http://localhost:8000/auth/users/me/',
-      {headers: new HttpHeaders().set('Autorization', 'Token ' + token)});
+    return this.http.get('http://localhost:8000/auth/me/',
+      {headers: new HttpHeaders().set('Authorization', 'Token ' + token)});
   }
 }
