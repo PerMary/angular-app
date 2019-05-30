@@ -14,7 +14,7 @@ export class DemanddetailService {
   getPositions(){
     // return this.http.get('http://localhost:8000/demands');
 
-    return this.http.get('http://localhost:8000/positions/');
+    return this.http.get('http://localhost:8000/demands/');
     // -как правильно фильтровать?
     // demand.id
   //  Как правильно указать адрес откуда брать отфильтрованные данные?
