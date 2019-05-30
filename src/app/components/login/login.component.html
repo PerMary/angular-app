@@ -18,12 +18,11 @@
                   type="text"
                   placeholder="username"
                   pInputText
-                  formControlName="username"
-                  [ngClass]="{'is-invalid': submitted && f['username'].errors}" />
-
-              <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-                <div *ngIf="f['username'].hasError('required')">Требуется указать username</div>
-              </div>
+                  formControlName="username">
+                  <!--[ngClass]="{'is-invalid': submitted && f['username'].errors}" />-->
+              <!--<div *ngIf="submitted && f['username'].errors" class="invalid-feedback">-->
+                <!--<div *ngIf="f['username'].hasError('required')">Требуется указать username</div>-->
+              <!--</div>-->
             </span>
           </div>
 
@@ -35,11 +34,11 @@
                   type="password"
                   placeholder="password"
                   formControlName="password"
-                  pInputText
-                  [ngClass]="{'is-invalid': submitted && f['password'].errors}" />
-                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                  <div *ngIf="f['password'].errors.required">Требуется указать пароль</div>
-                </div>
+                  pInputText>
+                  <!--[ngClass]="{'is-invalid': submitted && f['password'].errors}" />-->
+                <!--<div *ngIf="submitted && f['password'].errors" class="invalid-feedback">-->
+                  <!--<div *ngIf="f['password'].errors.required">Требуется указать пароль</div>-->
+                <!--</div>-->
             </span>
           </div>
           <div class="ui-g-12">
@@ -53,5 +52,8 @@
       </div>
     </div>
   </div>
+
+</div>
+<div >
 
 </div>

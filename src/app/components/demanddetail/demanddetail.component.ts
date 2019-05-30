@@ -6,6 +6,7 @@ import { DemanddetailService} from '../../service/demanddetail/demanddetail.serv
 import {Observable} from 'rxjs';
 import { switchMap} from 'rxjs/internal/operators';
 import { DemnadslistService} from '../../service/demandslist/demnadslist.service';
+import { filter} from 'rxjs/internal/operators';
 
 export interface Position {
   id: number;
@@ -35,10 +36,10 @@ export class DemanddetailComponent implements OnInit {
 
   demand: number;
   id: number;
-  // demands: Demand[]=[];
+  demands: Demand[]=[];
   positions: Position[]=
     [
-      // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
+      {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
     ];
 
   addPosition(id: number, demand: number, name_product: string, art_product:string, quantity:number, price_one:number): void{
@@ -52,19 +53,22 @@ export class DemanddetailComponent implements OnInit {
     private ddService: DemanddetailService,
     private route: ActivatedRoute,
     private  router: Router,
-    private servicelist: DemnadslistService,
+    private demandsService: DemnadslistService,
   ) {}
   // { this.demand = activeRoute.snapshot.params['demand']; }
 
-  ngOnInit(){
+  ngOnInit() {
     // this.route.paramMap.pipe(switchMap((params: ParamMap)=>
     // this.ddService.getPosition(params.get(demand))));
-
-    this.ddService.getPositions().subscribe((data: Position[])=>{
+    this.demandsService.getData().subscribe((data: Demand[]) => {
+      this.demands = this.demands.concat(data);
+      console.log(this.demands);
+    }
+    );
+    this.ddService.getPositions().subscribe((data: Position[]) => {
       this.positions = this.positions.concat(data);
-      // console.log(this.positions);
+      console.log(this.positions);
     });
   }
-
 
 }

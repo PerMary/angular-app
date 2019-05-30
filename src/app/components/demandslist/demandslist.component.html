@@ -1,39 +1,79 @@
 <div>
-  <h1>Список заявок на закупку:</h1>
-</div>
-<div class="panel" align="center">
-  <!--А ВОТ ЭТА ШТУКА ПЛОХО РАБОАЕТ, ЕЕ НАДО ПЕРЕПИСАТЬ-->
-  <div class="add demand">
-    <button onclick="javscript://" class="splLink">Добавить заявку</button>
-    <div class="splCont">
-       <div class="form-inline">
-    <div class="form-group">
-      <div class="col-md-8">
-        <input type="number" class="form-control" [(ngModel)]="id" placeholder="Номер заявки" /> - автоматически
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-8">
-        <input type="date" class="form-control" [(ngModel)]="date" placeholder="Дата" /> - автоматически
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-6">
-        <input class="form-control" [(ngModel)]="user" placeholder="Пользователь" /> -  автоматически
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-8">
-        <input class="form-control" maxlength="255" [(ngModel)]="description" placeholder="Описание" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-offset-2 col-md-8">
-        <button class="btn btn-default" (click)="addDemand(id, date, description)">Добавить</button>
-      </div>
-    </div>
+  <div>
+    <h1>Список заявок на закупку:</h1>
   </div>
+  <div class="form" align="center">
+  <form [formGroup]="addDemandForm" (ngSubmit)="onSubmit()" required>
+    <div class="fields">
+      <div class="id">
+        <label><i>ID: </i>
+          <input
+             id="id"
+             type="number"
+             placeholder="номер заявки"/>-должен заполняться автоматически </label>
+
+      </div>
+      <div class="created_date">
+        <label><i>Дата создания: </i>
+          <input
+             id="created_date"
+             type="string"
+             placeholder="дата создания"/>-должен заполняться автоматически </label>
+      </div>
+      <div class="user">
+        <label><i>Пользователь: </i>
+          <input
+             id="user"
+             type="string"
+             placeholder="пользователь"/>-должен заполняться автоматически </label>
+      </div>
+      <div class="description">
+        <label><i>Описание: </i>
+          <input
+             id="description"
+             type="string"
+             placeholder="Закупка оборудования для проекта 'Источник И1"/> </label>
+      </div>
+    </div>
+    <div class="buttonAdd">
+      <button type="submit"
+              class="buttonAddDemand">
+        <!--&lt;!&ndash;[disabled]="addDemandForm.invalid || loading">&ndash;&gt;-->
+          Добавить
+      </button>
+      form status {{ addDemandForm.status }}
+    </div>
+  </form>
   </div>
+
+<!--<div class="panel" align="center">-->
+       <!--<div class="form-inline">-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input type="number" class="form-control" [(ngModel)]="id" placeholder="Номер заявки" /> - автоматически-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input type="date" class="form-control" [(ngModel)]="date" placeholder="Дата" /> - автоматически-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-6">-->
+        <!--<input class="form-control" [(ngModel)]="user" placeholder="Пользователь" /> -  автоматически-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input class="form-control" maxlength="255" [(ngModel)]="description" placeholder="Описание" />-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-offset-2 col-md-8">-->
+        <!--<button class="btn btn-default" (click)="addDemand(id, date, description)">Добавить</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 <div class="table_style_demand">
   <table>
     <thead>
@@ -53,7 +93,7 @@
       <td>{{demand.created_date|date:"d.MM.y"}}</td>
       <td>{{ demand.user.short_name}}</td>
       <!--<td>{{demand.user}}</td>-->
-      <td><a [routerLink]="['/demand-detail', demand.id]">{{demand.description}}</a></td>
+      <td><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
       <td>{{ demand.position_count}}</td>
       <td>{{ demand.product_count}}</td>
       <td>{{ demand.price_all}}</td>
@@ -61,4 +101,5 @@
     <router-outlet></router-outlet>
     </tbody>
   </table>
+</div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from "@angular/common/http";
 import { DemnadslistService} from "../../service/demandslist/demnadslist.service";
+import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import { ActivatedRoute} from '@angular/router';
 
@@ -20,6 +21,7 @@ interface Demand {
 })
 export class DemandslistComponent implements OnInit {
 
+  addDemandForm: FormGroup;
   demands: Demand[]=
     [
       // {id:1, created_date:"",user:[], description:"Закупка оборудования для проекта 'Источник И1'" },
@@ -37,6 +39,7 @@ export class DemandslistComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private demandsService: DemnadslistService,
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -45,22 +48,22 @@ export class DemandslistComponent implements OnInit {
       console.log(this.demands);
     }
     );
+    this.addDemandForm = this.formBuilder.group({
+      id: ['', Validators.required],
+      created_date: ['', Validators.required],
+      user: ['', Validators.required],
+      description: ['', Validators.required],
+    });
   }
 
-  openForm(){
-    var a=prompt('Введите опсиание заявки','');
-    var text = '';
-    if (a === null){
-      text = 'Вы не ввели опсиание заявки';
+
+  onSubmit(){
+    // console.warn(this.addDemandForm.value);
+    if(this.addDemandForm.invalid){
+      console.log('adsjasa');
     }
-    else if(a == ''){
-      text = 'Вы не ввели опсиание заявки';
-    }
-    else{
-      text = a;
-    }
-    document.getElementById('demand_view').innerHTML = 'Заявка: ' + text;
-  };
+    console.log(this.addDemandForm);
+  }
 
 }
 

@@ -1,8 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService} from '../../service/login/login.service';
+// import { LoginService} from '../../service/login/login.service';
 import {error} from 'selenium-webdriver';
 import {AppComponent} from '../../app.component';
+import { AuthenticationService} from '../../service/authentication/authentication.service';
 
 export interface User{
   id: number;
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   @Output()public fullnameChange = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
-              private loginServ: LoginService) { }
+              private loginServ: AuthenticationService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
                          this.loginForm.controls.password.value )
                              .subscribe (token=> {console.log(token),
                          this.loginServ.getInfoUser(token['auth_token'])
-                             .subscribe((data: User)=> {AppComponent.fullname.next(data['full_name']);
+                             .subscribe((data: User)=> {AppComponent.fullname.next(data['short_name']);
                                  console.log(data)})},
                                    error=>{console.log(error)});
 

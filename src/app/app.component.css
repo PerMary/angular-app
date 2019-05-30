@@ -29,13 +29,6 @@
   display: inline-block;
 }
 
-.aaa{
-    align-content: center;
-    /*display:inline-block;*/
-    /*text-align: center;*/
-    /*width: 40%;*/
-}
-
 /*Значок тигра*/
 img{
 	margin-bottom: -13px;
@@ -51,9 +44,8 @@ img{
 .footer{
 	text-align: left;
 	position: absolute;
-    right: 0;
-    width: 90%;
-    font-family: FreeMono, monospace;
+  right: 0;
+  width: 90%;
+  font-family: FreeMono, monospace;
 	font-size: 17;
-
 }

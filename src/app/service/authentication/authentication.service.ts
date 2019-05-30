@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { LoginComponent } from '../../components/login/login.component';
 import { User } from '../../components/login/login.component';
 import { HttpClient} from '@angular/common/http';
 import { HttpHeaders} from '@angular/common/http';
 
-@Injectable()
-export class LoginService {
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthenticationService {
+
   user: User;
 
   constructor(private http: HttpClient) { }
@@ -19,4 +21,5 @@ export class LoginService {
     return this.http.get('http://localhost:8000/auth/me/',
       {headers: new HttpHeaders().set('Authorization', 'Token ' + token)});
   }
+
 }

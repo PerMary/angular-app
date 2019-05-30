@@ -4,11 +4,16 @@
       <a routerLink="/">Главная</a>
     </div>
       <!--<a href=""><img type="image" src="tiger.png"></a>-->
-    <div>
-      Вы вошли как {{ Full_name }}
-      <button routerLink="/login">Вход</button>
-      <button routerLink="/logout">Выход</button>
-    </div>
+    <button routerLink="/login">Вход</button>
+    <select>
+      <option routerLink="/profile">{{ Full_name }}</option>
+      <option routerLink="/logout">Выход из системы</option>
+    </select>
+    <!--<div>-->
+      <!--Вы вошли как <a routerLink="/profile">{{ Full_name }}</a>-->
+      <!--<button routerLink="/login">Вход</button>-->
+      <!--<button routerLink="/logout">Выход</button>-->
+    <!--</div>-->
   </div>
 </div>
   <router-outlet></router-outlet>

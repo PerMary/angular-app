@@ -13,6 +13,12 @@
   </div>
   <div class="button_demand_del_create" align="center">
     <div class="form-group">
+      <label>Demand:</label>
+      <select class="form-control" id="power" required>
+        <option *ngFor="let demand of demands" [value]="dem">{{dem}}</option>
+      </select>
+    </div>
+    <div class="form-group">
       <div class="col-md-8">
         <input class="form-control" [(ngModel)]="name" placeholder="Наименование позиции" />
       </div>
