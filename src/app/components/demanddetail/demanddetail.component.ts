@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { ActivatedRoute, Router, ParamMap} from '@angular/router';
-import { DemandslistComponent} from '../demandslist/demandslist.component';
+import { RouterModule,
+         ActivatedRoute,
+         Router,
+         ParamMap} from '@angular/router';
 import { DemanddetailService} from '../../service/demanddetail/demanddetail.service';
-import {Observable} from 'rxjs';
-import { switchMap} from 'rxjs/internal/operators';
 import { DemnadslistService} from '../../service/demandslist/demnadslist.service';
-import { filter} from 'rxjs/internal/operators';
+import { ReactiveFormsModule} from '@angular/forms';
+import { FormGroup,
+         FormBuilder,
+         Validators } from '@angular/forms';
+
 
 export interface Position {
   id: number;
@@ -20,7 +24,7 @@ export interface Position {
 export interface Demand {
   id: number;
   created_date: string;
-  user: string[];
+  user: [];
   description: string;
   positions: [];
 }
@@ -34,41 +38,46 @@ export interface Demand {
 })
 export class DemanddetailComponent implements OnInit {
 
-  demand: number;
+  // demand: number;
   id: number;
+  addPositionForm: FormGroup;
+  demand: Demand[]=[];
   demands: Demand[]=[];
   positions: Position[]=
     [
-      {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
+      // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
     ];
 
-  addPosition(id: number, demand: number, name_product: string, art_product:string, quantity:number, price_one:number): void{
-    // if(name==null || name.trim()=="" || article==null || article.trim()=="" || quantity==null || priceOne==null)
-    //   return;
-    // this.positions.push(new Position(name, article, quantity, priceOne));
-  }
 
   constructor(
     private http: HttpClient,
     private ddService: DemanddetailService,
     private route: ActivatedRoute,
-    private  router: Router,
+    private router: Router,
+    private formBuilder: FormBuilder,
     private demandsService: DemnadslistService,
   ) {}
   // { this.demand = activeRoute.snapshot.params['demand']; }
 
   ngOnInit() {
-    // this.route.paramMap.pipe(switchMap((params: ParamMap)=>
-    // this.ddService.getPosition(params.get(demand))));
-    this.demandsService.getData().subscribe((data: Demand[]) => {
-      this.demands = this.demands.concat(data);
-      console.log(this.demands);
+    this.ddService.getPositions().subscribe((data: Demand[]) => {
+      // Position[]) =>{
+      // this.positions = this.positions.concat(data);
+      //console.log(this.positions);
+        this.demand = this.demand.concat(data);
+      console.log(this.demand);
     }
     );
-    this.ddService.getPositions().subscribe((data: Position[]) => {
-      this.positions = this.positions.concat(data);
-      console.log(this.positions);
+    this.addPositionForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      art: ['', Validators.required],
+      quantity: ['', Validators.required],
+      price_one: ['', Validators.required],
     });
+  }
+
+  gotoDemandList() {
+    this.router.navigate(['/demands']);
   }
 
 }

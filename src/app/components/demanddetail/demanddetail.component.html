@@ -1,53 +1,97 @@
 <div>
-  <a routerLink="/"><-Назад</a>
+  <button (click)="gotoDemandList()"><-Назад</button>
 </div>
 <div>
   <p class="title_info_demand"><b>Информация о завке: </b></p>
   <div class="info_demand">
   <p><b><i>Дата создания: </i></b> </p>
   <p><b><i>Номер заявки: </i></b> </p>
-  <p><b><i>Описание: </i></b>  </p>
+  <p><b><i>Описание: </i></b> {{ demand.description}} </p>
   <p><b><i>Количество позиций: </i></b> </p>
   <p><b><i>Количество товаров: </i></b> </p>
   <p><b><i>Общая стоимость(руб): </i></b> </p>
   </div>
-  <div class="button_demand_del_create" align="center">
-    <div class="form-group">
-      <label>Demand:</label>
-      <select class="form-control" id="power" required>
-        <option *ngFor="let demand of demands" [value]="dem">{{dem}}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <div class="col-md-8">
-        <input class="form-control" [(ngModel)]="name" placeholder="Наименование позиции" />
+  <div class="form" align="center">
+  <form [formGroup]="addPositionForm" (ngSubmit)="onSubmit()" required>
+    <div class="fields">
+      <div class="name">
+        <label><i>name: </i>
+          <input
+             id="name"
+             type="text"
+             formControlName="name"
+             placeholder="Наименование позиции"/>-должен заполняться автоматически </label>
       </div>
+      <!--<div class="created_date">-->
+        <!--<label><i>Дата создания: </i>-->
+          <!--<input-->
+             <!--id="created_date"-->
+             <!--type="string"-->
+             <!--placeholder="дата создания"/>-должен заполняться автоматически </label>-->
+      <!--</div>-->
+      <!--<div class="user">-->
+        <!--<label><i>Пользователь: </i>-->
+          <!--<input-->
+             <!--id="user"-->
+             <!--type="string"-->
+             <!--placeholder="пользователь"/>-должен заполняться автоматически </label>-->
+      <!--</div>-->
+      <!--<div class="description">-->
+        <!--<label><i>Описание: </i>-->
+          <!--<input-->
+             <!--id="description"-->
+             <!--type="string"-->
+             <!--placeholder="Закупка оборудования для проекта 'Источник И1"/> </label>-->
+      <!--</div>-->
+    <!--</div>-->
+    <div class="buttonAdd">
+      <button type="submit"
+              class="buttonAddPosition">
+        <!--&lt;!&ndash;[disabled]="addDemandForm.invalid || loading">&ndash;&gt;-->
+          Добавить
+      </button>
+      form status {{ addPositionForm.status }}
     </div>
-    <div class="form-group">
-      <div class="col-md-8">
-        <input class="form-control" [(ngModel)]="article" placeholder="Артикул" />
-      </div>
     </div>
-    <div class="form-group">
-      <div class="col-md-6">
-        <input type="number" class="form-control" [(ngModel)]="quantity" placeholder="Количество" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-6">
-        <input type="number" class="form-control" [(ngModel)]="priceOne" placeholder="Цена за шт" />
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-md-offset-2 col-md-8">
-        <button class="btn btn-default" (click)="addPosition(name, article, quantity, priceOne)">Добавить позицию</button>
-      </div>
-    </div>
-    <p>
-      <button> Сформировать PDF</button>
-      <button> Просмотр всех PDF</button>
-    </p>
+  </form>
   </div>
+  <!--<div class="button_demand_del_create" align="center">-->
+    <!--<div class="form-group">-->
+      <!--<label>Demand:</label>-->
+      <!--<select class="form-control" id="power" required>-->
+        <!--<option *ngFor="let demand of demands" [value]="dem">{{dem}}</option>-->
+      <!--</select>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input class="form-control" [(ngModel)]="name" placeholder="Наименование позиции" />-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-8">-->
+        <!--<input class="form-control" [(ngModel)]="article" placeholder="Артикул" />-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-6">-->
+        <!--<input type="number" class="form-control" [(ngModel)]="quantity" placeholder="Количество" />-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-6">-->
+        <!--<input type="number" class="form-control" [(ngModel)]="priceOne" placeholder="Цена за шт" />-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="form-group">-->
+      <!--<div class="col-md-offset-2 col-md-8">-->
+        <!--<button class="btn btn-default" (click)="addPosition()">Добавить позицию</button>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<p>-->
+      <!--<button> Сформировать PDF</button>-->
+      <!--<button> Просмотр всех PDF</button>-->
+    <!--</p>-->
+  <!--</div>-->
   <div align="center">
     <div class="table_style">
       <table width="1000">

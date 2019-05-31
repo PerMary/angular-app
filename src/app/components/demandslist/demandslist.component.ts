@@ -29,18 +29,13 @@ export class DemandslistComponent implements OnInit {
       // {id:3, created_date:"",user:[], description:"Закупка оборудования" },
     ];
 
-  addDemand(descriptions: string){
-    // if (id==null || created_date==null || created_date.trim()=="" || descriptions==null || descriptions.trim()=="")
-    //   return;
-
-    // this.demands.push(new Demand (descriptions));
-  }
 
   constructor(
     private http: HttpClient,
     private demandsService: DemnadslistService,
     private formBuilder: FormBuilder,
   ) { }
+
 
   ngOnInit() {
     this.demandsService.getData().subscribe((data: Demand[]) => {
@@ -59,7 +54,7 @@ export class DemandslistComponent implements OnInit {
 
   onSubmit(){
     // console.warn(this.addDemandForm.value);
-    if(this.addDemandForm.invalid){
+    if (this.addDemandForm.invalid){
       console.log('adsjasa');
     }
     console.log(this.addDemandForm);
