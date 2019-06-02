@@ -1,15 +1,15 @@
 <div>
   <button (click)="gotoDemandList()"><-Назад</button>
 </div>
-<div>
-  <p class="title_info_demand"><b>Информация о завке: </b></p>
+<div *ngIf="!notFound">
+  <p class="title_info_demand"><b>Информация о завке: {{ demand?.id}} </b></p>
   <div class="info_demand">
-  <p><b><i>Дата создания: </i></b> </p>
-  <p><b><i>Номер заявки: </i></b> </p>
-  <p><b><i>Описание: </i></b> {{ demand.description}} </p>
-  <p><b><i>Количество позиций: </i></b> </p>
-  <p><b><i>Количество товаров: </i></b> </p>
-  <p><b><i>Общая стоимость(руб): </i></b> </p>
+  <p><b><i>Дата создания: </i></b>  {{ demand?.created_date|date:"d.MM.y"}}</p>
+  <p><b><i>Номер заявки: </i></b> {{ demand?.id}} </p>
+  <p><b><i>Описание: </i></b> {{ demand?.description}} </p>
+  <p><b><i>Количество позиций: </i></b> {{ demand?.position_count}} </p>
+  <p><b><i>Количество товаров: </i></b> {{ demand?.product_count}} </p>
+  <p><b><i>Общая стоимость(руб): </i></b> {{ demand?.price_all}} </p>
   </div>
   <div class="form" align="center">
   <form [formGroup]="addPositionForm" (ngSubmit)="onSubmit()" required>
@@ -116,4 +116,7 @@
       </table>
     </div>
   </div>
+</div>
+<div *ngIf="notFound">
+  <h3>Нет такой заявки</h3>
 </div>

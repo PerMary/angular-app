@@ -5,39 +5,6 @@
   <div class="form" align="center">
   <form [formGroup]="addDemandForm" (ngSubmit)="onSubmit()" required>
     <div class="fields">
-      <div class="id">
-        <span class="spanid">
-        <label><i>ID: </i>
-          <input
-             id="id"
-             type="number"
-             formControlName="id"
-             pInputText
-             placeholder="номер заявки"/>-должен заполняться автоматически </label>
-        </span>
-      </div>
-      <div class="created_date">
-        <span class="spandate">
-        <label><i>Дата создания: </i>
-          <input
-             id="created_date"
-             type="string"
-             formControlName="created_date"
-             pInputText
-             placeholder="дата создания"/>-должен заполняться автоматически </label>
-        </span>
-      </div>
-      <div class="user">
-        <span class="spanuser">
-        <label><i>Пользователь: </i>
-          <input
-             id="user"
-             type="string"
-             formControlName="user"
-             pInputText
-             placeholder="пользователь"/>-должен заполняться автоматически </label>
-        </span>
-      </div>
       <div class="description">
         <span class="spandesc">
         <label><i>Описание: </i>
@@ -49,14 +16,14 @@
              placeholder="Закупка оборудования для проекта 'Источник И1"/> </label>
         </span>
       </div>
-    </div>
+      </div>
     <div class="buttonAdd">
       <button type="submit"
-              class="buttonAddDemand"
-        [disabled]="addDemandForm.invalid || loading">
+              class="buttonAddDemand">
+        <!--[disabled]="addDemandForm.invalid || loading">-->
           Добавить
       </button>
-      form status {{ addDemandForm.status }}
+      form status
     </div>
   </form>
   </div>

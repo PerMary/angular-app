@@ -11,7 +11,7 @@ import { ProfileComponent} from './components/profile/profile.component';
 const routes: Routes =[
     { path: 'login', component: LoginComponent},
     { path: 'demands', component: DemandslistComponent},
-    { path: 'detail/:demand.id', component: DemanddetailComponent},
+    { path: 'detail/:demandId', component: DemanddetailComponent},
     { path: '',  redirectTo: '/demands', pathMatch: 'full' },
     { path: 'logout', component: LogoutComponent},
     { path: 'profile', component: ProfileComponent},

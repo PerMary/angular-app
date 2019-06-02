@@ -43,11 +43,13 @@ export class LoginComponent implements OnInit {
     }
     this.loginServ.Login(this.loginForm.controls.username.value,
                          this.loginForm.controls.password.value )
-                             .subscribe (token=> {console.log(token),
-                         this.loginServ.getInfoUser(token['auth_token'])
-                             .subscribe((data: User)=> {AppComponent.fullname.next(data['short_name']);
-                                 console.log(data)})},
-                                   error=>{console.log(error)});
+                             .subscribe (token=> {
+                               console.log(token);
+                               localStorage.setItem('token', token['auth_token']);
+                               this.loginServ.getInfoUser(token['auth_token'])
+                                   .subscribe((data: User)=> {AppComponent.fullname.next(data['short_name']);
+                                       console.log(data)})},
+                                         error=>{console.log(error)});
 
 
   }

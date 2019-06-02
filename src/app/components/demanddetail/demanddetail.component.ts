@@ -10,6 +10,8 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { FormGroup,
          FormBuilder,
          Validators } from '@angular/forms';
+import {switchMap} from 'rxjs/internal/operators';
+import {Observable} from 'rxjs';
 
 
 export interface Position {
@@ -24,7 +26,7 @@ export interface Position {
 export interface Demand {
   id: number;
   created_date: string;
-  user: [];
+  user: {};
   description: string;
   positions: [];
 }
@@ -41,12 +43,12 @@ export class DemanddetailComponent implements OnInit {
   // demand: number;
   id: number;
   addPositionForm: FormGroup;
-  demand: Demand[]=[];
-  demands: Demand[]=[];
-  positions: Position[]=
-    [
-      // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
-    ];
+  demand: Demand;
+  positions: Position[] = [];
+  notFound = false;
+    // [
+    //   // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
+    // ];
 
 
   constructor(
@@ -60,14 +62,28 @@ export class DemanddetailComponent implements OnInit {
   // { this.demand = activeRoute.snapshot.params['demand']; }
 
   ngOnInit() {
-    this.ddService.getPositions().subscribe((data: Demand[]) => {
-      // Position[]) =>{
-      // this.positions = this.positions.concat(data);
-      //console.log(this.positions);
-        this.demand = this.demand.concat(data);
-      console.log(this.demand);
-    }
-    );
+    this.id = Number(this.route.snapshot.paramMap.get('demandId'));
+    this.ddService.getDemand(this.id).subscribe((data: Demand) => {
+      this.demand = data;
+      this.ddService.getPositions(this.id).subscribe((positions: Position[]) => {
+        this.positions = positions;
+      });
+      console.log(data);
+    }, (error) => {
+      this.notFound = true;
+      console.log(error);
+    });
+
+   //  this.id = this.route.paramMap.pipe(
+   //    switchMap((params: ParamMap) => this.ddService.getPositions('demandId')));
+   //
+   // //  this.ddService.getDemand(this.demand);
+   // //                                                        console.log(this.demand);
+   //  this.ddService.getPositions(this.id).subscribe((data: Position[]) =>{
+   //                                                        this.positions = this.positions.concat(data);
+   //                                                        console.log(this.positions);
+   //  }
+   //  );
     this.addPositionForm = this.formBuilder.group({
       name: ['', Validators.required],
       art: ['', Validators.required],

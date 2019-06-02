@@ -10,17 +10,24 @@ import { Router,
 @Injectable()
 export class DemanddetailService {
 
-  demand: Demand;
+  demandId: Demand;
   id: number;
 
 
-  constructor(private http:HttpClient,
+  constructor(private http: HttpClient,
               private route: ActivatedRoute) { }
 
-  getPositions(){
-    // return this.http.get('http://localhost:8000/demands');
 
-    return this.http.get('http://localhost:8000/demands/1/'  );
+
+  getDemand(demandId: number){
+    return this.http.get(`http://localhost:8000/demands/` + demandId.toString() );
+  }
+
+  getPositions(demandId: number){
+    return this.http.get('http://localhost:8000/positions?demand=' + demandId.toString(), );
+
+    // return this.http.get(`http://localhost:8000/demands/${demandId}/`  );
+    // return this.http.get(`http://localhost:8000/demands/` + demandId.toString()  );
   //  Как правильно указать адрес откуда брать отфильтрованные данные?
   // Если мне нужен адрес http://localhost:8000/positions/?demand=1
   // Или http://localhost:8000/demands/1/ (с позициями)

@@ -8,7 +8,7 @@ import { ActivatedRoute} from '@angular/router';
 interface Demand {
   id: number;
   created_date: string;
-  user: string[];
+  user: {};
   description: string;
 }
 
@@ -38,26 +38,35 @@ export class DemandslistComponent implements OnInit {
 
 
   ngOnInit() {
-    this.demandsService.getData().subscribe((data: Demand[]) => {
-      this.demands = this.demands.concat(data);
-      console.log(this.demands);
-    }
-    );
+    this.loadDemands();
     this.addDemandForm = this.formBuilder.group({
-      id: ['', Validators.required],
-      created_date: ['', Validators.required],
-      user: ['', Validators.required],
+      // id: ['', Validators.required],
+      // created_date: ['', Validators.required],
+      // user: ['', Validators.required],
       description: ['', Validators.required],
     });
   }
 
+  loadDemands() {
+    this.demandsService.getData().subscribe((data: Demand[]) => {
+      this.demands = data;
+      console.log(this.demands);
+    }
+    );
+  }
+
 
   onSubmit(){
-    // console.warn(this.addDemandForm.value);
-    if (this.addDemandForm.invalid){
-      console.log('adsjasa');
+
+    if (this.addDemandForm.invalid) {
+      console.log('тут должна быть ошибка, типа неправильно заполнена форма');
     }
     console.log(this.addDemandForm);
+    this.demandsService.postData(this.addDemandForm.value)
+      .subscribe(demand => {
+        console.log(demand);
+        this.loadDemands();
+      });
   }
 
 }
