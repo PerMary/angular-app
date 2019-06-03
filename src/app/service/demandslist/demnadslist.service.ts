@@ -16,7 +16,7 @@ const httpOptions = {
 @Injectable()
 export class DemnadslistService {
 
-  DemandsUrl = 'http://localhost:8000/detail/';
+  DemandsUrl = 'http://localhost:8000/demands/';
 
   constructor(private http:HttpClient) { }
 

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {error} from 'selenium-webdriver';
 import {AppComponent} from '../../app.component';
 import { AuthenticationService} from '../../service/authentication/authentication.service';
+import { Router} from '@angular/router';
 
 export interface User{
   id: number;
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
   @Output()public fullnameChange = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,
-              private loginServ: AuthenticationService) { }
+              private loginServ: AuthenticationService,
+              private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -51,6 +53,7 @@ export class LoginComponent implements OnInit {
                                localStorage.setItem('token', token['auth_token']);
                                this.loginServ.getInfoUser(token['auth_token'])
                                    .subscribe((data: User) => {AppComponent.fullname.next(data['short_name']);
+                                      this.router.navigate(['/demands'])
                                        console.log(data)})},
                                          error => {console.log(error)});
 

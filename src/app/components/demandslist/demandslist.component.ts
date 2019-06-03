@@ -55,8 +55,6 @@ export class DemandslistComponent implements OnInit {
       this.demands = data;
       console.log(this.demands);
     }
-    //Как правильно проверить созданы ли заявки и изменить
-      // noCreatedDemands на true
     );
   }
 
@@ -73,7 +71,8 @@ export class DemandslistComponent implements OnInit {
     this.demandsService.postData(this.addDemandForm.value)
       .subscribe(demand => {
         console.log(demand);
-        this.loadDemands();
+        this.router.navigate(['/detail/' + demand['id']]);
+        // this.loadDemands();
       });
   }
 

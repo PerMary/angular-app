@@ -6,7 +6,7 @@ import { RouterModule,
          ParamMap} from '@angular/router';
 import { DemanddetailService} from '../../service/demanddetail/demanddetail.service';
 import { DemnadslistService} from '../../service/demandslist/demnadslist.service';
-import { ReactiveFormsModule} from '@angular/forms';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import { FormGroup,
          FormBuilder,
          Validators } from '@angular/forms';
@@ -63,21 +63,23 @@ export class DemanddetailComponent implements OnInit {
   // { this.demand = activeRoute.snapshot.params['demand']; }
 
   ngOnInit() {
-    this.loadPositions();
     this.addPositionForm = this.formBuilder.group({
       name_product: ['', Validators.required],
       art_product: ['', Validators.required],
       quantity: ['', Validators.required],
       price_one: ['', Validators.required],
     });
+    this.loadPositions();
   }
 
   loadPositions() {
     this.id = Number(this.route.snapshot.paramMap.get('demandId'));
+    this.addPositionForm.addControl('demand', new FormControl(this.id));
     this.ddService.getDemand(this.id).subscribe((data: Demand) => {
       this.demand = data;
       this.ddService.getPositions(this.id).subscribe((positions: Position[]) => {
         this.positions = positions;
+        console.log(positions);
       });
       console.log(data);
     });
