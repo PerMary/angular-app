@@ -6,10 +6,12 @@ import { Router,
          ActivatedRoute,
          RouterModule,
          ParamMap } from '@angular/router';
+import { Position} from '../../components/demanddetail/demanddetail.component';
 
 @Injectable()
 export class DemanddetailService {
 
+  PositionsUrl = 'http://localhost:8000/positions/';
   demandId: Demand;
   id: number;
 
@@ -25,14 +27,10 @@ export class DemanddetailService {
 
   getPositions(demandId: number){
     return this.http.get('http://localhost:8000/positions?demand=' + demandId.toString(), );
-
-    // return this.http.get(`http://localhost:8000/demands/${demandId}/`  );
-    // return this.http.get(`http://localhost:8000/demands/` + demandId.toString()  );
-  //  Как правильно указать адрес откуда брать отфильтрованные данные?
-  // Если мне нужен адрес http://localhost:8000/positions/?demand=1
-  // Или http://localhost:8000/demands/1/ (с позициями)
-  // id=1
   }
 
-  addPosition() {}
+
+  postPosition(positions: any ): Observable<Position> {
+    return this.http.post<Position>(this.PositionsUrl, positions);
+  }
 }

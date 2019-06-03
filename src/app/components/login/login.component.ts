@@ -22,6 +22,8 @@ export interface User{
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  auth = false;
   loginForm: FormGroup;
   user: User;
 
@@ -34,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-    })
+    });
   }
 
   onSubmit(){
@@ -43,13 +45,14 @@ export class LoginComponent implements OnInit {
     }
     this.loginServ.Login(this.loginForm.controls.username.value,
                          this.loginForm.controls.password.value )
-                             .subscribe (token=> {
+                             .subscribe (token => {
                                console.log(token);
+                               this.auth = true;
                                localStorage.setItem('token', token['auth_token']);
                                this.loginServ.getInfoUser(token['auth_token'])
-                                   .subscribe((data: User)=> {AppComponent.fullname.next(data['short_name']);
+                                   .subscribe((data: User) => {AppComponent.fullname.next(data['short_name']);
                                        console.log(data)})},
-                                         error=>{console.log(error)});
+                                         error => {console.log(error)});
 
 
   }

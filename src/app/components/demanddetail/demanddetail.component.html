@@ -14,85 +14,58 @@
   <div class="form" align="center">
   <form [formGroup]="addPositionForm" (ngSubmit)="onSubmit()" required>
     <div class="fields">
-      <div class="name">
-        <label><i>name: </i>
-          <input
-             id="name"
-             type="text"
-             formControlName="name"
-             placeholder="Наименование позиции"/>-должен заполняться автоматически </label>
+      <div class="name_product">
+        <span class="spandesc">
+          <label><i>Наименование позиции: </i>
+            <input
+              id="name_product"
+              type="string"
+              formControlName="name_product"
+              placeholder="Конденсатор "/></label>
+        </span>
       </div>
-      <!--<div class="created_date">-->
-        <!--<label><i>Дата создания: </i>-->
-          <!--<input-->
-             <!--id="created_date"-->
-             <!--type="string"-->
-             <!--placeholder="дата создания"/>-должен заполняться автоматически </label>-->
-      <!--</div>-->
-      <!--<div class="user">-->
-        <!--<label><i>Пользователь: </i>-->
-          <!--<input-->
-             <!--id="user"-->
-             <!--type="string"-->
-             <!--placeholder="пользователь"/>-должен заполняться автоматически </label>-->
-      <!--</div>-->
-      <!--<div class="description">-->
-        <!--<label><i>Описание: </i>-->
-          <!--<input-->
-             <!--id="description"-->
-             <!--type="string"-->
-             <!--placeholder="Закупка оборудования для проекта 'Источник И1"/> </label>-->
-      <!--</div>-->
-    <!--</div>-->
-    <div class="buttonAdd">
-      <button type="submit"
-              class="buttonAddPosition">
-        <!--&lt;!&ndash;[disabled]="addDemandForm.invalid || loading">&ndash;&gt;-->
+      <div class="art_product">
+        <span class="spandesc">
+          <label><i>Артикул: </i>
+            <input
+              id="art_product"
+              type="string"
+              formControlName="art_product"
+              placeholder="ADS67JU9Q "/></label>
+        </span>
+      </div>
+      <div class="quantity">
+        <span class="spandesc">
+          <label><i>Количество: </i>
+            <input
+              id="quantity"
+              type="number"
+              formControlName="quantity"
+              placeholder="1000 "/></label>
+        </span>
+      </div>
+      <div class="price_one">
+        <span class="spandesc">
+          <label><i>Цена за шт.: </i>
+            <input
+              id="price_one"
+              type="number"
+              formControlName="price_one"
+              placeholder="12500 "/></label>
+        </span>
+      </div>
+      <div class="buttonAdd">
+        <button type="submit"
+                class="buttonAddPosition"
+             [disabled]="addPositionForm.invalid || loading">
           Добавить
-      </button>
-      form status {{ addPositionForm.status }}
-    </div>
+        </button>
+      </div>
+        <!--form status {{ addPositionForm.status }}-->
     </div>
   </form>
   </div>
-  <!--<div class="button_demand_del_create" align="center">-->
-    <!--<div class="form-group">-->
-      <!--<label>Demand:</label>-->
-      <!--<select class="form-control" id="power" required>-->
-        <!--<option *ngFor="let demand of demands" [value]="dem">{{dem}}</option>-->
-      <!--</select>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-8">-->
-        <!--<input class="form-control" [(ngModel)]="name" placeholder="Наименование позиции" />-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-8">-->
-        <!--<input class="form-control" [(ngModel)]="article" placeholder="Артикул" />-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-6">-->
-        <!--<input type="number" class="form-control" [(ngModel)]="quantity" placeholder="Количество" />-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-6">-->
-        <!--<input type="number" class="form-control" [(ngModel)]="priceOne" placeholder="Цена за шт" />-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-offset-2 col-md-8">-->
-        <!--<button class="btn btn-default" (click)="addPosition()">Добавить позицию</button>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<p>-->
-      <!--<button> Сформировать PDF</button>-->
-      <!--<button> Просмотр всех PDF</button>-->
-    <!--</p>-->
-  <!--</div>-->
-  <div align="center">
+  <div align="center" *ngIf="positions.length > 0">
     <div class="table_style">
       <table width="1000">
         <thead>
@@ -106,17 +79,24 @@
         </thead>
         <tbody>
         <tr *ngFor="let position of positions">
-          <td>{{ position.name_product }}</td>
-          <td>{{ position.art_product }}</td>
-          <td>{{ position.quantity}}</td>
-          <td>{{ position.price_one}}</td>
-          <td>{{ position.full_price_position}}</td>
+          <td bgcolor="d8cce6">{{ position.name_product }}</td>
+          <td bgcolor="d8cce6">{{ position.art_product }}</td>
+          <td bgcolor="d8cce6">{{ position.quantity}}</td>
+          <td bgcolor="d8cce6">{{ position.price_one}}</td>
+          <td bgcolor="d8cce6">{{ position.full_price_position}}</td>
+          <td><button class="but_change">Ред</button></td>
+          <td><button class="but_delete">Уд</button></td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <div *ngIf="positions.length == 0 ">
+    <h3 align="center">
+      Для данной заявки еще не создано ни одной позиции
+    </h3>
+  </div>
 </div>
 <div *ngIf="notFound">
-  <h3>Нет такой заявки</h3>
+  <h3 align="center">Такой заявки не существует или она была удалена</h3>
 </div>

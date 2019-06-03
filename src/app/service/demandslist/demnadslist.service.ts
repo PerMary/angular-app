@@ -16,7 +16,7 @@ const httpOptions = {
 @Injectable()
 export class DemnadslistService {
 
-  DemandsUrl = 'http://localhost:8000/demands/';
+  DemandsUrl = 'http://localhost:8000/detail/';
 
   constructor(private http:HttpClient) { }
 
@@ -26,5 +26,10 @@ export class DemnadslistService {
 
   postData(demand: any): Observable<Demand> {
     return this.http.post<Demand>(this.DemandsUrl, demand, httpOptions);
+  }
+
+  deleteDemand(id: number): Observable <{}> {
+    const url = `${this.DemandsUrl}/${id}`;
+    return this.http.delete(url, httpOptions);
   }
 }

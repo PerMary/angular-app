@@ -16,7 +16,7 @@ td{
 	text-align: center;
 	font-family: FreeMono, monospace;
 	font-size: 18;
-  background-color: #d8cce6;
+  /*background-color: #d8cce6;*/
 
 }
 
@@ -45,7 +45,6 @@ table{
   margin-right: auto;
 }
 
-.splCont{
-  display:none;
-  /*padding:3px 5px;*/
+.but_change_delete{
+  background-color: white;
 }

@@ -46,6 +46,7 @@ export class DemanddetailComponent implements OnInit {
   demand: Demand;
   positions: Position[] = [];
   notFound = false;
+  formValid = false;
     // [
     //   // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
     // ];
@@ -62,6 +63,16 @@ export class DemanddetailComponent implements OnInit {
   // { this.demand = activeRoute.snapshot.params['demand']; }
 
   ngOnInit() {
+    this.loadPositions();
+    this.addPositionForm = this.formBuilder.group({
+      name_product: ['', Validators.required],
+      art_product: ['', Validators.required],
+      quantity: ['', Validators.required],
+      price_one: ['', Validators.required],
+    });
+  }
+
+  loadPositions() {
     this.id = Number(this.route.snapshot.paramMap.get('demandId'));
     this.ddService.getDemand(this.id).subscribe((data: Demand) => {
       this.demand = data;
@@ -69,31 +80,25 @@ export class DemanddetailComponent implements OnInit {
         this.positions = positions;
       });
       console.log(data);
-    }, (error) => {
-      this.notFound = true;
-      console.log(error);
-    });
-
-   //  this.id = this.route.paramMap.pipe(
-   //    switchMap((params: ParamMap) => this.ddService.getPositions('demandId')));
-   //
-   // //  this.ddService.getDemand(this.demand);
-   // //                                                        console.log(this.demand);
-   //  this.ddService.getPositions(this.id).subscribe((data: Position[]) =>{
-   //                                                        this.positions = this.positions.concat(data);
-   //                                                        console.log(this.positions);
-   //  }
-   //  );
-    this.addPositionForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      art: ['', Validators.required],
-      quantity: ['', Validators.required],
-      price_one: ['', Validators.required],
     });
   }
 
   gotoDemandList() {
-    this.router.navigate(['/demands']);
+    this.router.navigate(['/demands'
+      // , { id: this.id, foo: 'foo'} -эта штука показывает откуда ты вернулся из какой заявки
+      ]);
+  }
+
+  onSubmit(){
+    if (this.addPositionForm.invalid) {
+      console.log('тут должна быть ошибка, типа неправильно заполнена форма');
+    }
+    console.log(this.addPositionForm);
+    this.ddService.postPosition(this.addPositionForm.value)
+      .subscribe(position => {
+        console.log(position);});
+        this.loadPositions();
+    //Я остановилась тут на добавлении формы на сервер
   }
 
 }

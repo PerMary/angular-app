@@ -4,6 +4,7 @@ import { DemnadslistService} from "../../service/demandslist/demnadslist.service
 import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import { ActivatedRoute} from '@angular/router';
+import { Route, Router} from '@angular/router';
 
 interface Demand {
   id: number;
@@ -21,7 +22,9 @@ interface Demand {
 })
 export class DemandslistComponent implements OnInit {
 
+  noCreatedDemands = false;
   addDemandForm: FormGroup;
+  id:number;
   demands: Demand[]=
     [
       // {id:1, created_date:"",user:[], description:"Закупка оборудования для проекта 'Источник И1'" },
@@ -34,15 +37,15 @@ export class DemandslistComponent implements OnInit {
     private http: HttpClient,
     private demandsService: DemnadslistService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
 
   ngOnInit() {
+    this.id = Number(this.route.snapshot.paramMap.get('demandId'));
     this.loadDemands();
     this.addDemandForm = this.formBuilder.group({
-      // id: ['', Validators.required],
-      // created_date: ['', Validators.required],
-      // user: ['', Validators.required],
       description: ['', Validators.required],
     });
   }
@@ -52,12 +55,17 @@ export class DemandslistComponent implements OnInit {
       this.demands = data;
       console.log(this.demands);
     }
+    //Как правильно проверить созданы ли заявки и изменить
+      // noCreatedDemands на true
     );
+  }
+
+  deleteDem(demand: Demand): void{
+    this.demandsService.deleteDemand(this.id);
   }
 
 
   onSubmit(){
-
     if (this.addDemandForm.invalid) {
       console.log('тут должна быть ошибка, типа неправильно заполнена форма');
     }

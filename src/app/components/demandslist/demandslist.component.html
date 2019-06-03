@@ -19,44 +19,14 @@
       </div>
     <div class="buttonAdd">
       <button type="submit"
-              class="buttonAddDemand">
-        <!--[disabled]="addDemandForm.invalid || loading">-->
+              class="buttonAddDemand"
+              [disabled]="addDemandForm.invalid || loading">
           Добавить
       </button>
-      form status
     </div>
   </form>
   </div>
-
-<!--<div class="panel" align="center">-->
-       <!--<div class="form-inline">-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-8">-->
-        <!--<input type="number" class="form-control" [(ngModel)]="id" placeholder="Номер заявки" /> - автоматически-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-8">-->
-        <!--<input type="date" class="form-control" [(ngModel)]="date" placeholder="Дата" /> - автоматически-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-6">-->
-        <!--<input class="form-control" [(ngModel)]="user" placeholder="Пользователь" /> -  автоматически-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-8">-->
-        <!--<input class="form-control" maxlength="255" [(ngModel)]="description" placeholder="Описание" />-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="form-group">-->
-      <!--<div class="col-md-offset-2 col-md-8">-->
-        <!--<button class="btn btn-default" (click)="addDemand(id, date, description)">Добавить</button>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<div class="table_style_demand">
+<div class="table_style_demand" *ngIf="demands.length > 0 ">
   <table>
     <thead>
     <tr>
@@ -71,17 +41,23 @@
     </thead>
     <tbody>
     <tr *ngFor="let demand of demands">
-      <td>{{demand.id}}</td>
-      <td>{{demand.created_date|date:"d.MM.y"}}</td>
-      <td>{{ demand.user.short_name}}</td>
+      <td bgcolor="d8cce6">{{demand.id}}</td>
+      <td bgcolor="d8cce6">{{demand.created_date|date:"d.MM.y"}}</td>
+      <td bgcolor="d8cce6">{{ demand.user.short_name}}</td>
       <!--<td>{{demand.user}}</td>-->
-      <td><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
-      <td>{{ demand.position_count}}</td>
-      <td>{{ demand.product_count}}</td>
-      <td>{{ demand.price_all}}</td>
+      <td bgcolor="d8cce6"><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
+      <td bgcolor="d8cce6">{{ demand.position_count}}</td>
+      <td bgcolor="d8cce6">{{ demand.product_count}}</td>
+      <td bgcolor="d8cce6">{{ demand.price_all}}</td>
+      <td><button class="but_change">Ред</button></td>
+      <td><button class="but_delete" (click)="deleteDem(id)">Уд</button></td>
+      <!--Че то эта кнопка не работает-->
     </tr>
     <router-outlet></router-outlet>
     </tbody>
   </table>
 </div>
+  <div *ngIf="demands.length == 0" align="center">
+    <h3>УУУУУУУПС еще не создано не одной заявки</h3>
+  </div>
 </div>

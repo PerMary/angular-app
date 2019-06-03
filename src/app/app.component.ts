@@ -11,11 +11,13 @@ import {FormBuilder} from '@angular/forms';
 })
 export class AppComponent {
 
+  auth = false;
+
   public Full_name = '';
 
   public static fullname: Subject<any>=new Subject();
 
   constructor() {
-    AppComponent.fullname.subscribe(res=>this.Full_name= res);
+    AppComponent.fullname.subscribe(res => this.Full_name = res);
   }
 }
