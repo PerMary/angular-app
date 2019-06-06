@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Demand} from '../../components/demanddetail/demanddetail.component';
 import { Observable} from 'rxjs';
+import {catchError} from 'rxjs/internal/operators';
 
 const token = localStorage.getItem('token');
 const httpOptions = {
@@ -37,16 +38,7 @@ export class DemnadslistService {
     return this.http.delete('http://localhost:8000/demands/' + demandId);
   }
 
-  editDemand(demandId: number, demand: Demand, id): Observable<{}>{
-    const url = `${this.DemandsUrl}/${id}`;
-    const headers = new HttpHeaders()
-      .set("Content-Type", "application/json");
-    return this.http.put<Demand>(this.DemandsUrl + demandId.toString(),
-                                     // url,
-                                     // demand,
-                              { description: this.description},
-                              // {headers}
-                              // {params: new HttpParams().set('id', 'description')}
-                              );
+  editDemand(demand: Demand): Observable<Demand>{
+    return this.http.put<Demand>(this.DemandsUrl + demand['id'] + '/', demand, httpOptions);
     }
 }

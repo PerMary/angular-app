@@ -44,8 +44,8 @@
       <td bgcolor="d8cce6">{{demand.created_date|date:"d.MM.y"}}</td>
       <td bgcolor="d8cce6">{{ demand.user.short_name}}</td>
       <!--<td>{{demand.user}}</td>-->
-      <td bgcolor="d8cce6" *ngIf="!edit"><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
-      <td bgcolor="d8cce6" *ngIf="edit">
+      <td bgcolor="d8cce6" *ngIf="editDemand !== demand"><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
+      <td bgcolor="d8cce6" *ngIf="editDemand === demand">
         <input type="string"
                value="{{ demand.description}}"
                placeholder="Закупка оборудования для проекта 'Источник И1"/>
@@ -53,7 +53,7 @@
       <td bgcolor="d8cce6">{{ demand.position_count}}</td>
       <td bgcolor="d8cce6">{{ demand.product_count}}</td>
       <td bgcolor="d8cce6">{{ demand.price_all}}</td>
-      <td *ngIf="!edit"><button
+      <td *ngIf="editDemand !== demand"><button
                   class="but_change"
                   type="submit"
                   (click)="openForm(demand)">
@@ -61,10 +61,10 @@
             Ред
           </button>
       </td>
-      <td *ngIf="edit">
+      <td *ngIf="editDemand === demand">
         <button class="but_change"
                 type="submit"
-                (click)="closeForm(demand)">
+                (click)="saveDemand(demand)">
           Сохр
         </button>
       </td>

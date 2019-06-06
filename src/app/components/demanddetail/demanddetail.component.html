@@ -79,43 +79,43 @@
         </thead>
         <tbody>
         <tr *ngFor="let position of positions">
-          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.name_product }} </td>
-          <td bgcolor="d8cce6" *ngIf="edit">
+          <td bgcolor="d8cce6" *ngIf="editPosition !== position">{{ position.name_product }} </td>
+          <td bgcolor="d8cce6" *ngIf="editPosition === position">
             <input type="string"
                    value="{{ position.name_product }}"/>
           </td>
-          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.art_product }}</td>
-          <td bgcolor="d8cce6" *ngIf="edit">
+          <td bgcolor="d8cce6" *ngIf="editPosition !== position">{{ position.art_product }}</td>
+          <td bgcolor="d8cce6" *ngIf="editPosition === position">
             <input type="string"
                    value="{{ position.art_product }}"/>
           </td>
-          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.quantity}}</td>
-          <td bgcolor="d8cce6" *ngIf="edit">
+          <td bgcolor="d8cce6" *ngIf="editPosition !== position">{{ position.quantity}}</td>
+          <td bgcolor="d8cce6" *ngIf="editPosition === position">
             <input type="number"
                    value="{{ position.quantity}}"/>
           </td>
-          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.price_one}}</td>
-          <td bgcolor="d8cce6" *ngIf="edit">
+          <td bgcolor="d8cce6" *ngIf="editPosition !== position">{{ position.price_one}}</td>
+          <td bgcolor="d8cce6" *ngIf="editPosition === position">
             <input type="number"
                    value="{{ position.price_one}}"/>
           </td>
-          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.full_price_position}}</td>
-          <td bgcolor="d8cce6" *ngIf="edit">
+          <td bgcolor="d8cce6" *ngIf="editPosition !== position">{{ position.full_price_position}}</td>
+          <td bgcolor="d8cce6" *ngIf="editPosition === position">
           </td>
-          <td *ngIf="!edit">
+          <td *ngIf="editPosition !== position">
             <button
               class="but_change"
               type="submit"
               value=""
-              (click)="openFormEdit()">
+              (click)="openForm(position)">
               Ред
             </button>
           </td>
-          <td *ngIf="edit">
+          <td *ngIf="editPosition === position">
             <button
               class="but_change"
               type="submit"
-              (click)="closeForm()">
+              (click)="savePosition(position)">
               Сохр
             </button></td>
           <td><button type="submit"

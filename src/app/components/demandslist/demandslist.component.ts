@@ -19,7 +19,7 @@ export class DemandslistComponent implements OnInit {
   addDemandForm: FormGroup;
   editDemandForm: FormGroup;
   id: number;
-  edit = false;
+  editDemand: Demand;
   demandId: number;
   description: string;
   demand: Demand;
@@ -76,18 +76,18 @@ export class DemandslistComponent implements OnInit {
     // })
   }
 
-  openForm(demand: Demand, demandId: number) {
-    if (demand.id ){
-      console.log(demand.id);
-      this.edit = true;
-    }
+  openForm(demand: Demand) {
+      this.editDemand = demand;
   }
 
-  closeForm(demand: Demand){
-    if (demand.id ) {
-      console.log(demand.id);
-      this.edit = false;
-    }
+  saveDemand(){
+    console.log(this.editDemand);
+    this.demandsService.editDemand(this.editDemand)
+      .subscribe(res=> {
+        console.log(res);
+        this.loadDemands();
+      });
+      this.editDemand = null;
   }
 
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Demand} from '../../components/demanddetail/demanddetail.component';
 import { Observable} from 'rxjs';
 import { Router,
@@ -7,6 +7,16 @@ import { Router,
          RouterModule,
          ParamMap } from '@angular/router';
 import { Position} from '../../components/demanddetail/demanddetail.component';
+
+
+const token = localStorage.getItem('token');
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'Token ' + token,
+  })
+};
+
 
 @Injectable()
 export class DemanddetailService {
@@ -37,4 +47,8 @@ export class DemanddetailService {
   deletePosition(positionId: any): Observable<{}>{
     return this.http.delete(`http://localhost:8000/positions/` + positionId);
   }
+
+  editPosition(position: Position): Observable<Position>{
+    return this.http.put<Position>(this.PositionsUrl + position['id'] + '/', position, httpOptions);
+    }
 }

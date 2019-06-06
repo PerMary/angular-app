@@ -48,7 +48,7 @@ export class DemanddetailComponent implements OnInit {
   demand: Demand;
   positions: Position[] = [];
   notFound = false;
-  edit = false;
+  editPosition: Position;
   formValid = false;
     // [
     //   // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
@@ -108,15 +108,20 @@ export class DemanddetailComponent implements OnInit {
     }
   }
 
-  openFormEdit() {
-    this.edit = true;
+  openForm(position: Position) {
+    this.editPosition = position;
   }
 
-  closeForm(){
-    this.edit = false;
+  savePosition() {
+    console.log(this.editPosition);
+    this.ddService.editPosition(this.editPosition)
+      .subscribe(res => {
+        console.log(res);
+        this.editPosition = null;
+      });
   }
 
-  onSubmit(){
+  onSubmit() {
     if (this.addPositionForm.invalid) {
       console.log('тут должна быть ошибка, типа неправильно заполнена форма');
     }
