@@ -12,7 +12,7 @@ import { Position} from '../../components/demanddetail/demanddetail.component';
 export class DemanddetailService {
 
   PositionsUrl = 'http://localhost:8000/positions/';
-  demandId: Demand;
+  demandId: Demand[];
   id: number;
 
 
@@ -32,5 +32,9 @@ export class DemanddetailService {
 
   postPosition(positions: any ): Observable<Position> {
     return this.http.post<Position>(this.PositionsUrl, positions);
+  }
+
+  deletePosition(positionId: any): Observable<{}>{
+    return this.http.delete(`http://localhost:8000/positions/` + positionId);
   }
 }

@@ -79,13 +79,49 @@
         </thead>
         <tbody>
         <tr *ngFor="let position of positions">
-          <td bgcolor="d8cce6">{{ position.name_product }}</td>
-          <td bgcolor="d8cce6">{{ position.art_product }}</td>
-          <td bgcolor="d8cce6">{{ position.quantity}}</td>
-          <td bgcolor="d8cce6">{{ position.price_one}}</td>
-          <td bgcolor="d8cce6">{{ position.full_price_position}}</td>
-          <td><button class="but_change">Ред</button></td>
-          <td><button class="but_delete">Уд</button></td>
+          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.name_product }} </td>
+          <td bgcolor="d8cce6" *ngIf="edit">
+            <input type="string"
+                   value="{{ position.name_product }}"/>
+          </td>
+          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.art_product }}</td>
+          <td bgcolor="d8cce6" *ngIf="edit">
+            <input type="string"
+                   value="{{ position.art_product }}"/>
+          </td>
+          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.quantity}}</td>
+          <td bgcolor="d8cce6" *ngIf="edit">
+            <input type="number"
+                   value="{{ position.quantity}}"/>
+          </td>
+          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.price_one}}</td>
+          <td bgcolor="d8cce6" *ngIf="edit">
+            <input type="number"
+                   value="{{ position.price_one}}"/>
+          </td>
+          <td bgcolor="d8cce6" *ngIf="!edit">{{ position.full_price_position}}</td>
+          <td bgcolor="d8cce6" *ngIf="edit">
+          </td>
+          <td *ngIf="!edit">
+            <button
+              class="but_change"
+              type="submit"
+              value=""
+              (click)="openFormEdit()">
+              Ред
+            </button>
+          </td>
+          <td *ngIf="edit">
+            <button
+              class="but_change"
+              type="submit"
+              (click)="closeForm()">
+              Сохр
+            </button></td>
+          <td><button type="submit"
+                      class="but_delete"
+                      title="position"
+            (click)="deletePos(position)">Уд</button></td>
         </tr>
         </tbody>
       </table>

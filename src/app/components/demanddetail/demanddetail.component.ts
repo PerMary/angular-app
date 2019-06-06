@@ -12,6 +12,7 @@ import { FormGroup,
          Validators } from '@angular/forms';
 import {switchMap} from 'rxjs/internal/operators';
 import {Observable} from 'rxjs';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 
 export interface Position {
@@ -42,10 +43,12 @@ export class DemanddetailComponent implements OnInit {
 
   // demand: number;
   id: number;
+  idPos: number;
   addPositionForm: FormGroup;
   demand: Demand;
   positions: Position[] = [];
   notFound = false;
+  edit = false;
   formValid = false;
     // [
     //   // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
@@ -60,7 +63,6 @@ export class DemanddetailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private demandsService: DemnadslistService,
   ) {}
-  // { this.demand = activeRoute.snapshot.params['demand']; }
 
   ngOnInit() {
     this.addPositionForm = this.formBuilder.group({
@@ -75,6 +77,7 @@ export class DemanddetailComponent implements OnInit {
   loadPositions() {
     this.id = Number(this.route.snapshot.paramMap.get('demandId'));
     this.addPositionForm.addControl('demand', new FormControl(this.id));
+    //Отправляет айди заявки к которой нужно прикрепить эту позицию
     this.ddService.getDemand(this.id).subscribe((data: Demand) => {
       this.demand = data;
       this.ddService.getPositions(this.id).subscribe((positions: Position[]) => {
@@ -91,6 +94,28 @@ export class DemanddetailComponent implements OnInit {
       ]);
   }
 
+  deletePos(position: Position){
+    // Можно ли сделать подтверждение удаления через confirm? или это тупо
+    if( confirm("Вы действительно хотите удалить данную позицию?")){
+      this.ddService.deletePosition(position.id)
+        .subscribe((datadel: Position[]) => {
+          // console.log(datadel);
+          this.loadPositions();
+        });
+    }
+    else {
+      this.loadPositions();
+    }
+  }
+
+  openFormEdit() {
+    this.edit = true;
+  }
+
+  closeForm(){
+    this.edit = false;
+  }
+
   onSubmit(){
     if (this.addPositionForm.invalid) {
       console.log('тут должна быть ошибка, типа неправильно заполнена форма');
@@ -98,9 +123,10 @@ export class DemanddetailComponent implements OnInit {
     console.log(this.addPositionForm);
     this.ddService.postPosition(this.addPositionForm.value)
       .subscribe(position => {
-        console.log(position);});
+        console.log(position);
         this.loadPositions();
-    //Я остановилась тут на добавлении формы на сервер
+        // Как сделать, чтобы после отправки форма очистилась?
+      });
   }
 
 }

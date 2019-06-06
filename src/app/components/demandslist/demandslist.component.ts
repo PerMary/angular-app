@@ -5,14 +5,8 @@ import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import { ActivatedRoute} from '@angular/router';
 import { Route, Router} from '@angular/router';
-
-interface Demand {
-  id: number;
-  created_date: string;
-  user: {};
-  description: string;
-}
-
+import {Demand} from '../demanddetail/demanddetail.component';
+import {assertNumber} from '@angular/core/src/render3/assert';
 
 
 @Component({
@@ -22,15 +16,14 @@ interface Demand {
 })
 export class DemandslistComponent implements OnInit {
 
-  noCreatedDemands = false;
   addDemandForm: FormGroup;
-  id:number;
-  demands: Demand[]=
-    [
-      // {id:1, created_date:"",user:[], description:"Закупка оборудования для проекта 'Источник И1'" },
-      // {id:2, created_date:"",user:[], description:"Закупка для проекта 'Источник'" },
-      // {id:3, created_date:"",user:[], description:"Закупка оборудования" },
-    ];
+  editDemandForm: FormGroup;
+  id: number;
+  edit = false;
+  demandId: number;
+  description: string;
+  demand: Demand;
+  demands: Demand[] = [];
 
 
   constructor(
@@ -43,9 +36,11 @@ export class DemandslistComponent implements OnInit {
 
 
   ngOnInit() {
-    this.id = Number(this.route.snapshot.paramMap.get('demandId'));
     this.loadDemands();
     this.addDemandForm = this.formBuilder.group({
+      description: ['', Validators.required],
+    });
+    this.editDemandForm = this.formBuilder.group({
       description: ['', Validators.required],
     });
   }
@@ -58,19 +53,53 @@ export class DemandslistComponent implements OnInit {
     );
   }
 
-  deleteDem(demand: Demand): void{
-    this.demandsService.deleteDemand(this.id);
+  deleteDem(demand: Demand) {
+    if (confirm("Вы действительно хотите удалить данную заявку?")){
+      this.demandsService.deleteDemand(demand.id)
+        .subscribe((datadel: Demand[]) => {
+          // console.log(datadel);
+          this.loadDemands();
+          });
+    }
+    else {
+      this.loadDemands();
+    }
+  }
+
+  editDem(demand: Demand, id: number) {
+    //   .subscribe(val => {
+    //   console.log(val);
+    // });
+    // this.demandsService.editDemand(this.id).subscribe( res =>)//Что здесь написать?
+    //   .subscribe((val: Demand) =>{
+    //   console.log(val);
+    // })
+  }
+
+  openForm(demand: Demand, demandId: number) {
+    if (demand.id ){
+      console.log(demand.id);
+      this.edit = true;
+    }
+  }
+
+  closeForm(demand: Demand){
+    if (demand.id ) {
+      console.log(demand.id);
+      this.edit = false;
+    }
   }
 
 
-  onSubmit(){
+
+  onSubmit() {
     if (this.addDemandForm.invalid) {
       console.log('тут должна быть ошибка, типа неправильно заполнена форма');
     }
     console.log(this.addDemandForm);
     this.demandsService.postData(this.addDemandForm.value)
       .subscribe(demand => {
-        console.log(demand);
+        // console.log(demand);
         this.router.navigate(['/detail/' + demand['id']]);
         // this.loadDemands();
       });

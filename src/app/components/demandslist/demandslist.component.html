@@ -12,7 +12,6 @@
              id="description"
              type="string"
              formControlName="description"
-             pInputText
              placeholder="Закупка оборудования для проекта 'Источник И1"/> </label>
         </span>
       </div>
@@ -45,18 +44,63 @@
       <td bgcolor="d8cce6">{{demand.created_date|date:"d.MM.y"}}</td>
       <td bgcolor="d8cce6">{{ demand.user.short_name}}</td>
       <!--<td>{{demand.user}}</td>-->
-      <td bgcolor="d8cce6"><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
+      <td bgcolor="d8cce6" *ngIf="!edit"><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
+      <td bgcolor="d8cce6" *ngIf="edit">
+        <input type="string"
+               value="{{ demand.description}}"
+               placeholder="Закупка оборудования для проекта 'Источник И1"/>
+      </td>
       <td bgcolor="d8cce6">{{ demand.position_count}}</td>
       <td bgcolor="d8cce6">{{ demand.product_count}}</td>
       <td bgcolor="d8cce6">{{ demand.price_all}}</td>
-      <td><button class="but_change">Ред</button></td>
-      <td><button class="but_delete" (click)="deleteDem(id)">Уд</button></td>
-      <!--Че то эта кнопка не работает-->
+      <td *ngIf="!edit"><button
+                  class="but_change"
+                  type="submit"
+                  (click)="openForm(demand)">
+        <!--Как привязать кнопку к конкретной заявке?-->
+            Ред
+          </button>
+      </td>
+      <td *ngIf="edit">
+        <button class="but_change"
+                type="submit"
+                (click)="closeForm(demand)">
+          Сохр
+        </button>
+      </td>
+      <td><button
+            type="submit"
+            class="but_delete"
+            (click)="deleteDem(demand)">
+             Уд
+          </button>
+      </td>
     </tr>
     <router-outlet></router-outlet>
     </tbody>
   </table>
 </div>
+    <!--<div>-->
+      <!--&lt;!&ndash;*ngIf="edit"&ndash;&gt;-->
+      <!--<div align="center" class="form_edit" [formGroup]="editDemandForm">-->
+        <!--Редактировать-->
+        <!--<div>-->
+          <!--<label><i>Описание: </i>-->
+            <!--<input-->
+              <!--id="description"-->
+              <!--type="string"-->
+              <!--formControlName="description"-->
+              <!--placeholder="Закупка оборудования для проекта 'Источник И1"/> </label>-->
+        <!--</div>-->
+        <!--<div class="buttonAdd">-->
+          <!--<button type="submit"-->
+                  <!--class="buttonAddDemand"-->
+                  <!--(click)="editDem(demand)">-->
+            <!--Изменить-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</div>-->
+  <!--</div>-->
   <div *ngIf="demands.length === 0" align="center">
     <h3>УУУУУУУПС еще не создано не одной заявки</h3>
   </div>

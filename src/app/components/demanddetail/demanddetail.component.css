@@ -16,7 +16,6 @@ td{
 	text-align: center;
 	font-family: FreeMono, monospace;
 	font-size: 18;
-  background-color: #d8cce6;
 
 }
 
@@ -61,6 +60,6 @@ table{
     right: 0;
 }
 
-/*.button_demand_del_create{*/
-	/*text-align: center;*/
-/*}*/
+.form_edit{
+  margin-top: 20px;
+}

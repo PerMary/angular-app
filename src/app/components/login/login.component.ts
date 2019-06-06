@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
                                localStorage.setItem('token', token['auth_token']);
                                this.loginServ.getInfoUser(token['auth_token'])
                                    .subscribe((data: User) => {AppComponent.fullname.next(data['short_name']);
-                                      this.router.navigate(['/demands'])
+                                      this.router.navigate(['/profile'])
                                        console.log(data)})},
                                          error => {console.log(error)});
 
