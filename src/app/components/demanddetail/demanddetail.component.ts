@@ -110,6 +110,7 @@ export class DemanddetailComponent implements OnInit {
 
   openForm(position: Position) {
     this.editPosition = position;
+    console.log(position);
   }
 
   savePosition() {
@@ -117,7 +118,7 @@ export class DemanddetailComponent implements OnInit {
     this.ddService.editPosition(this.editPosition)
       .subscribe(res => {
         console.log(res);
-        this.editPosition = null;
+        this.editPosition = undefined;
       });
   }
 

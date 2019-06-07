@@ -66,28 +66,20 @@ export class DemandslistComponent implements OnInit {
     }
   }
 
-  editDem(demand: Demand, id: number) {
-    //   .subscribe(val => {
-    //   console.log(val);
-    // });
-    // this.demandsService.editDemand(this.id).subscribe( res =>)//Что здесь написать?
-    //   .subscribe((val: Demand) =>{
-    //   console.log(val);
-    // })
-  }
-
   openForm(demand: Demand) {
       this.editDemand = demand;
+      console.log(this.editDemand);
   }
 
-  saveDemand(){
+  saveDemand(demand: Demand) {
+    // this.openForm(demand);
     console.log(this.editDemand);
     this.demandsService.editDemand(this.editDemand)
-      .subscribe(res=> {
+      .subscribe(res => {
         console.log(res);
         this.loadDemands();
       });
-      this.editDemand = null;
+    this.editDemand = undefined;
   }
 
 
