@@ -18,6 +18,7 @@ export class DemandslistComponent implements OnInit {
 
   addDemandForm: FormGroup;
   editDemandForm: FormGroup;
+  editDemandControl: FormControl;
   id: number;
   editDemand: Demand;
   demandId: number;
@@ -40,6 +41,7 @@ export class DemandslistComponent implements OnInit {
     this.addDemandForm = this.formBuilder.group({
       description: ['', Validators.required],
     });
+    this.editDemandControl = new FormControl('', Validators.required);
     this.editDemandForm = this.formBuilder.group({
       description: ['', Validators.required],
     });
@@ -67,13 +69,15 @@ export class DemandslistComponent implements OnInit {
   }
 
   openForm(demand: Demand) {
-      this.editDemand = demand;
-      console.log(this.editDemand);
+    this.editDemandControl.patchValue(demand.description);
+    this.editDemand = demand;
+      // console.log(this.editDemand);
   }
 
-  saveDemand(demand: Demand) {
+  saveDemand() {
     // this.openForm(demand);
-    console.log(this.editDemand);
+    // console.log(this.editDemand);
+    this.editDemand.description = this.editDemandControl.value;
     this.demandsService.editDemand(this.editDemand)
       .subscribe(res => {
         console.log(res);

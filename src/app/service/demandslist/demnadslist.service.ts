@@ -39,6 +39,8 @@ export class DemnadslistService {
   }
 
   editDemand(demand: Demand): Observable<Demand>{
-    return this.http.put<Demand>(this.DemandsUrl + demand['id'] + '/', demand, httpOptions);
+    return this.http.put<Demand>(this.DemandsUrl + demand['id'] + '/',
+                                    demand,
+                                    httpOptions);
     }
 }

@@ -41,19 +41,16 @@ export interface Demand {
 })
 export class DemanddetailComponent implements OnInit {
 
-  // demand: number;
   id: number;
-  idPos: number;
   addPositionForm: FormGroup;
   demand: Demand;
   positions: Position[] = [];
   notFound = false;
+  editPositionForm: FormGroup;
   editPosition: Position;
-  formValid = false;
-    // [
-    //   // {id:1, demand:100, name_product: "Резистор", art_product:"РН-1К", quantity:5, price_one:10000},
-    // ];
-
+  editPositionId: number;
+  quantity: number;
+  price_one: number;
 
   constructor(
     private http: HttpClient,
@@ -68,10 +65,20 @@ export class DemanddetailComponent implements OnInit {
     this.addPositionForm = this.formBuilder.group({
       name_product: ['', Validators.required],
       art_product: ['', Validators.required],
-      quantity: ['', Validators.required],
+      quantity: ['', Validators.compose([Validators.required ,
+                                                  Validators.max(32767),
+                                                  Validators.maxLength(5)])],
       price_one: ['', Validators.required],
     });
     this.loadPositions();
+    this.editPositionForm = new FormGroup({
+      name_product: new FormControl('', Validators.required),
+      art_product: new FormControl('', Validators.required),
+      quantity: new FormControl('', Validators.compose([Validators.required ,
+                                                                         Validators.max(32767),
+                                                                         Validators.maxLength(5)])),
+      price_one: new FormControl('', Validators.required),
+    });
   }
 
   loadPositions() {
@@ -109,17 +116,27 @@ export class DemanddetailComponent implements OnInit {
   }
 
   openForm(position: Position) {
-    this.editPosition = position;
-    console.log(position);
+    this.editPositionForm.patchValue(position);
+    // this.editPositionForm.patchValue({name_product: position.name_product,
+    //                                        art_product: position.art_product,
+    //                                        quantity: position.quantity,
+    //                                        price_one: position.price_one});
+    // this.editPosition = position;
+    this.editPositionId = position.id;
+    console.log(this.editPosition);
   }
 
   savePosition() {
-    console.log(this.editPosition);
-    this.ddService.editPosition(this.editPosition)
+    // this.editPosition = this.editPositionForm.value;
+    console.log('FORM VALUE BEFORE SAVE', this.editPositionForm.value);
+    this.ddService.editPosition(this.editPositionId, this.editPositionForm.value)
       .subscribe(res => {
         console.log(res);
-        this.editPosition = undefined;
+        this.loadPositions();
+        this.editPositionId = undefined;
       });
+    this.editPosition = undefined;
+
   }
 
   onSubmit() {
@@ -130,9 +147,20 @@ export class DemanddetailComponent implements OnInit {
     this.ddService.postPosition(this.addPositionForm.value)
       .subscribe(position => {
         console.log(position);
+        this.addPositionForm.patchValue(
+          {
+            name_product: '',
+            art_product: '',
+            quantity: '',
+            price_one: '',
+          });
         this.loadPositions();
         // Как сделать, чтобы после отправки форма очистилась?
       });
+  }
+
+  calcPrice(price: number, quantity: number) {
+    return price * quantity;
   }
 
 }

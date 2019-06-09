@@ -48,7 +48,9 @@ export class DemanddetailService {
     return this.http.delete(`http://localhost:8000/positions/` + positionId);
   }
 
-  editPosition(position: Position): Observable<Position>{
-    return this.http.put<Position>(this.PositionsUrl + position['id'] + '/', position, httpOptions);
+  editPosition(id: number, position: any): Observable<Position>{
+    return this.http.patch<Position>(this.PositionsUrl + id + '/',
+                                      position,
+                                      httpOptions);
     }
 }

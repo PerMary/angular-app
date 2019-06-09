@@ -47,7 +47,7 @@
       <td bgcolor="d8cce6" *ngIf="editDemand !== demand"><a [routerLink]="['/detail', demand.id]">{{demand.description}}</a></td>
       <td bgcolor="d8cce6" *ngIf="editDemand === demand">
         <input type="string"
-               value="{{ demand.description}}"
+               [formControl]="editDemandControl"
                placeholder="Закупка оборудования для проекта 'Источник И1"/>
       </td>
       <td bgcolor="d8cce6">{{ demand.position_count}}</td>
@@ -64,6 +64,7 @@
       <td *ngIf="editDemand === demand">
         <button class="but_change"
                 type="submit"
+                [disabled]="editDemandControl.invalid || loading"
                 (click)="saveDemand(demand)">
           Сохр
         </button>
