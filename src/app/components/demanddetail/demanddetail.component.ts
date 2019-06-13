@@ -163,4 +163,10 @@ export class DemanddetailComponent implements OnInit {
     return price * quantity;
   }
 
+  generatePDF(){
+    this.ddService.getPDF(this.id).subscribe(url=>{
+      window.open('http://localhost:8000' + url);
+    });
+  }
+
 }

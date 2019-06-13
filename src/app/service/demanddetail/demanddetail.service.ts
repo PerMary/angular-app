@@ -22,8 +22,6 @@ const httpOptions = {
 export class DemanddetailService {
 
   PositionsUrl = 'http://localhost:8000/positions/';
-  demandId: Demand[];
-  id: number;
 
 
   constructor(private http: HttpClient,
@@ -53,4 +51,10 @@ export class DemanddetailService {
                                       position,
                                       httpOptions);
     }
+
+  getPDF(demandId:number){
+    return this.http.get(`http://localhost:8000/demands/` +
+                             demandId.toString() +
+                             '/PDF');
+  }
 }
