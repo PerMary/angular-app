@@ -169,5 +169,4 @@ export class DemanddetailComponent implements OnInit {
       window.open('http://localhost:8000' + url);
     });
   }
-
 }
