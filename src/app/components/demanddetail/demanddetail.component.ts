@@ -46,6 +46,7 @@ export class DemanddetailComponent implements OnInit {
   demand: Demand;
   positions: Position[] = [];
   notFound = false;
+  hide = false;
   editPositionForm: FormGroup;
   editPosition: Position;
   editPositionId: number;

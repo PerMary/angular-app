@@ -1,8 +1,8 @@
 <div>
   <button (click)="gotoDemandList()"><-Назад</button>
 </div>
-<div *ngIf="!notFound">
-  <p class="title_info_demand"><b>Информация о завке: {{ demand?.id}} </b></p>
+<div *ngIf="!notFound" id="content">
+  <p class="title_info_demand"><b>Информация о завке №{{ demand?.id}} </b></p>
   <div class="info_demand">
   <p><b><i>Дата создания: </i></b>  {{ demand?.created_date|date:"d.MM.y"}}</p>
   <p><b><i>Номер заявки: </i></b> {{ demand?.id}} </p>
@@ -11,7 +11,7 @@
   <p><b><i>Количество товаров: </i></b> {{ demand?.product_count}} </p>
   <p><b><i>Общая стоимость(руб): </i></b> {{ demand?.price_all}} </p>
   </div>
-  <div class="form" align="center">
+  <div class="form" align="center" *ngIf="!hide">
   <form [formGroup]="addPositionForm" (ngSubmit)="onSubmit()" required>
     <div class="fields">
       <div class="name_product">
@@ -66,7 +66,7 @@
     </div>
   </form>
   </div>
-  <div class="button-generate-PDF" align="center">
+  <div class="button-generate-PDF" align="center" *ngIf="!hide">
     <button
       type="button"
       (click)="generatePDF()" >
@@ -92,10 +92,11 @@
             <td bgcolor="d8cce6">{{ position.art_product }}</td>
             <td bgcolor="d8cce6">{{ position.quantity}}</td>
             <td bgcolor="d8cce6">{{ position.price_one}}</td>
-            <td bgcolor="d8cce6">{{ position.quantity * position.price_one}}</td>
+            <td bgcolor="d8cce6">{{ position.full_price_position }}</td>
             <td>
               <button
                 class="but_change"
+                *ngIf="!hide"
                 type="submit"
                 (click)="openForm(position)">
                 Ред
@@ -133,6 +134,7 @@
               </button></td>
           </ng-container>
           <td><button type="submit"
+                      *ngIf="!hide"
                       class="but_delete"
                       title="position"
             (click)="deletePos(position)">Уд</button></td>
